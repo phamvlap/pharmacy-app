@@ -9,7 +9,6 @@ void main() {
 
 class DrugSalesApp extends StatelessWidget {
   const DrugSalesApp({super.key});
-  static const String _appName = 'Drug Sales App';
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +17,7 @@ class DrugSalesApp extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(
-        title: _appName,
-      ),
+      home: const HomeScreen(),
     );
   }
 }
