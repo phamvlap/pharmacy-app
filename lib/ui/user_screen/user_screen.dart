@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import './../layouts/app_bar.dart';
+import './../layouts/drawer.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -9,6 +11,7 @@ class UserScreen extends StatelessWidget {
     return const Scaffold(
       appBar: MyAppBar(),
       body: Text('User hereeeeee!!!'),
+      drawer: MyAppDrawer(),
     );
   }
 }

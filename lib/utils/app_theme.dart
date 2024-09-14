@@ -1,74 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppTheme {
-  static final Color _greyColor = Colors.grey[700]!;
-  static const Color _whiteColor = Colors.white;
-  static final Color _primaryColor = Colors.green[700]!;
-  static final Color _secondaryColor = Colors.yellow[800]!;
+class AppColors {
+  static final Color greyColor = Colors.grey[700]!;
+  static const Color whiteColor = Colors.white;
+  static final Color primaryColor = Colors.green[700]!;
+  static final Color secondaryColor = Colors.yellow[800]!;
+}
 
+class AppFontSizes {
+  static const double bodyLarge = 14.0;
+  static const double displaySmall = 16.0;
+  static const double titleLarge = 20.0;
+  static const double displayMedium = 21.0;
+  static const double displayLarge = 32.0;
+}
+
+class AppTheme {
   // light text theme
   static TextTheme lightTextTheme = TextTheme(
     bodyLarge: GoogleFonts.openSans(
-      fontSize: 14.0,
+      fontSize: AppFontSizes.bodyLarge,
       fontWeight: FontWeight.w700,
-      color: _greyColor,
+      color: AppColors.greyColor,
     ),
     displayLarge: GoogleFonts.openSans(
-      fontSize: 32.0,
+      fontSize: AppFontSizes.displayLarge,
       fontWeight: FontWeight.bold,
-      color: _greyColor,
+      color: AppColors.greyColor,
     ),
     displayMedium: GoogleFonts.openSans(
-      fontSize: 21.0,
+      fontSize: AppFontSizes.displayMedium,
       fontWeight: FontWeight.w700,
-      color: _greyColor,
+      color: AppColors.greyColor,
     ),
     displaySmall: GoogleFonts.openSans(
-      fontSize: 16.0,
+      fontSize: AppFontSizes.displaySmall,
       fontWeight: FontWeight.w600,
-      color: _greyColor,
+      color: AppColors.greyColor,
     ),
     titleLarge: GoogleFonts.openSans(
-      fontSize: 20.0,
+      fontSize: AppFontSizes.titleLarge,
       fontWeight: FontWeight.w600,
-      color: _greyColor,
+      color: AppColors.greyColor,
     ),
   );
   // dark text theme
   static TextTheme darkTextTheme = TextTheme(
     bodyLarge: GoogleFonts.openSans(
-      fontSize: 14.0,
+      fontSize: AppFontSizes.bodyLarge,
       fontWeight: FontWeight.w700,
-      color: _whiteColor,
+      color: AppColors.whiteColor,
     ),
     displayLarge: GoogleFonts.openSans(
-      fontSize: 32.0,
+      fontSize: AppFontSizes.bodyLarge,
       fontWeight: FontWeight.bold,
-      color: _whiteColor,
+      color: AppColors.whiteColor,
     ),
     displayMedium: GoogleFonts.openSans(
-      fontSize: 21.0,
+      fontSize: AppFontSizes.displayMedium,
       fontWeight: FontWeight.w700,
-      color: _whiteColor,
+      color: AppColors.whiteColor,
     ),
     displaySmall: GoogleFonts.openSans(
-      fontSize: 16.0,
+      fontSize: AppFontSizes.displaySmall,
       fontWeight: FontWeight.w600,
-      color: _whiteColor,
+      color: AppColors.whiteColor,
     ),
     titleLarge: GoogleFonts.openSans(
-      fontSize: 20.0,
+      fontSize: AppFontSizes.titleLarge,
       fontWeight: FontWeight.w600,
-      color: _whiteColor,
+      color: AppColors.whiteColor,
     ),
   );
 
   static ColorScheme lightColorTheme = ColorScheme(
     brightness: Brightness.light,
-    primary: _primaryColor,
+    primary: AppColors.primaryColor,
     onPrimary: Colors.white,
-    secondary: _secondaryColor,
+    secondary: AppColors.secondaryColor,
     onSecondary: Colors.black,
     error: Colors.red,
     onError: Colors.white,
@@ -78,9 +88,9 @@ class AppTheme {
 
   static ColorScheme darkColorTheme = ColorScheme(
     brightness: Brightness.dark,
-    primary: _primaryColor,
+    primary: AppColors.primaryColor,
     onPrimary: Colors.white,
-    secondary: _secondaryColor,
+    secondary: AppColors.secondaryColor,
     onSecondary: Colors.black,
     error: Colors.red,
     onError: Colors.white,
@@ -101,13 +111,13 @@ class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        foregroundColor: _whiteColor,
-        backgroundColor: _primaryColor,
+        foregroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        foregroundColor: _whiteColor,
-        backgroundColor: _primaryColor,
+        foregroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.primaryColor,
       ),
       navigationBarTheme: NavigationBarThemeData(
         surfaceTintColor: Colors.white,
@@ -115,7 +125,7 @@ class AppTheme {
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) {
             if (states.contains(WidgetState.selected)) {
-              return TextStyle(color: _primaryColor);
+              return TextStyle(color: AppColors.primaryColor);
             }
             return const TextStyle(color: Colors.black);
           },
@@ -138,13 +148,13 @@ class AppTheme {
       colorScheme: darkColorTheme,
       textTheme: darkTextTheme,
       appBarTheme: const AppBarTheme(
-        foregroundColor: _whiteColor,
+        foregroundColor: AppColors.whiteColor,
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        foregroundColor: _whiteColor,
-        backgroundColor: _secondaryColor,
+        foregroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.secondaryColor,
       ),
       navigationBarTheme: NavigationBarThemeData(
         surfaceTintColor: Colors.black,

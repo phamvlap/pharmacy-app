@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import './../layouts/app_bar.dart';
+import './../layouts/drawer.dart';
 
 class ConsultScreen extends StatelessWidget {
   const ConsultScreen({super.key});
@@ -9,6 +11,7 @@ class ConsultScreen extends StatelessWidget {
     return const Scaffold(
       appBar: MyAppBar(),
       body: Text('Consult hereeeeee!!!'),
+      drawer: MyAppDrawer(),
     );
   }
 }

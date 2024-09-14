@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './../layouts/app_bar.dart';
+import './../layouts/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
           child: const Text('Home hereeeeee!!!'),
         ),
       ),
+      drawer: const MyAppDrawer(),
     );
   }
 }
