@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'utils/app_theme.dart';
-import 'ui/home_screen/home_screen.dart';
+import 'routes/main_route_screen.dart';
 
 void main() {
   runApp(const DrugSalesApp());
@@ -17,7 +17,7 @@ class DrugSalesApp extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const MainRouteScreen(),
     );
   }
 }
