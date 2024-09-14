@@ -14,6 +14,11 @@ class AppFontSizes {
   static const double titleLarge = 20.0;
   static const double displayMedium = 21.0;
   static const double displayLarge = 32.0;
+  static const double textExtraSmall = 12.0;
+  static const double textSmall = 14.0;
+  static const double textNormal = 16.0;
+  static const double textMedium = 18.0;
+  static const double textLarge = 22.0;
 }
 
 class AppTheme {
