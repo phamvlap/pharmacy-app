@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../../utils/consts.dart';
+import './../components/search_bar.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -13,28 +13,45 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(Consts.appName),
-          SizedBox(
-            width: 20.0,
-            child: ElevatedButton(
-              onPressed: () {
-                print('Showing notifications');
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(horizontal: 0.0),
-              ),
-              child: const Icon(
-                Icons.notifications,
-              ),
-            ),
+        children: <Widget>[
+          const Expanded(
+            child: AppSearchBar(),
+          ),
+          NotificationButton(
+            onPressed: () {
+              print('Notification button pressed');
+            },
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+    );
+  }
+}
+
+class NotificationButton extends StatelessWidget {
+  const NotificationButton({
+    super.key,
+    this.onPressed,
+  });
+
+  final Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.0),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+        ),
+        child: const Icon(
+          Icons.notifications,
+        ),
+      ),
     );
   }
 }
