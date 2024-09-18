@@ -10,11 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: MyAppBar(),
-<<<<<<< HEAD
       body: Text('Home screen'),
-=======
-      body: Text('Home page'),
->>>>>>> thien-dev
       drawer: MyAppDrawer(),
     );
   }
