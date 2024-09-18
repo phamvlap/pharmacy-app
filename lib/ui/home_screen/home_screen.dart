@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './../layouts/app_bar.dart';
 import './../layouts/drawer.dart';
+import './home_badge_grid.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,20 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return const DetailHome();
-                },
-              ),
-            );
-          },
-          child: const Text('Home hereeeeee!!!'),
-        ),
-      ),
+      body: HomeBadgeGrid(),
       drawer: const MyAppDrawer(),
     );
   }
@@ -38,7 +26,9 @@ class DetailHome extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Detail Home'),
       ),
-      body: const Text('Detail Home hereeeeee!!!'),
+      body: const SafeArea(
+        child: Text('For testing detail home'),
+      ),
     );
   }
 }

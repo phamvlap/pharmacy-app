@@ -3,15 +3,14 @@
 ## Trang chủ
 
 - [ ] Replace App name with search bar @ Lập
-- [ ] Badge: @ Thiện
-    + [ ] Sản phẩm tin cậy
-    + [ ] Đặt thuốc theo đơn
-    + [ ] Hệ thống nhà thuốc
-    + [ ] Liên hệ dược sĩ
-    + [ ] Mã giảm giá
-    + [ ] Đặt lịch 
-    + [ ] Hồ sơ sức khoẻ
-    + [ ] Đơn của tôi
+- [x] Badge: @ Thiện
+    + [x] Đặt thuốc theo đơn
+    + [x] Hệ thống nhà thuốc
+    + [x] Liên hệ dược sĩ
+    + [x] Mã giảm giá
+    + [x] Đặt lịch 
+    + [x] Hồ sơ sức khoẻ
+    + [x] Đơn của tôi
 - [ ] Bệnh: @ Thiện
     + [ ] Theo lứa tuổi
     + [ ] Theo dối tượng
