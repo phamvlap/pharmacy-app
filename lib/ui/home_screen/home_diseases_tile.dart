@@ -21,7 +21,7 @@ class HomeDiseasesTile extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       child: Column(
         children: <Widget>[
-          Image.network(
+          Image.asset(
             disease.imageUrls[0],
             fit: BoxFit.cover,
             height: 120,
