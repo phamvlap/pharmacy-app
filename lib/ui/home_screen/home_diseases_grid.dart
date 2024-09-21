@@ -11,9 +11,12 @@ class HomeDiseasesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final diseaseController = DiseaseController();
     final List<Disease> diseases = diseaseController.diseases;
+
     return GridView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: diseaseController.diseaseCount,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 8,

@@ -69,6 +69,8 @@ class HomeBadgeGrid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(8.0),
       itemCount: _homeBadgeTiles.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisSpacing: 8,
