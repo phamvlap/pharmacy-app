@@ -3,6 +3,7 @@ import './../models/product.dart';
 class ProductController {
   final List<Product> _products = [
     Product(
+      id: 'p1',
       name:
           'Aspirin 81mg Aspirin 81mg Aspirin 81mg Aspirin 81mg Aspirin 81mg Aspirin 81mg ',
       imageUrls: [
@@ -20,6 +21,7 @@ class ProductController {
       salesOff: 0.1,
     ),
     Product(
+      id: 'p2',
       name: 'Ibuprofen',
       imageUrls: [
         'assets/drugs/drug2.jpg',
@@ -37,6 +39,7 @@ class ProductController {
       salesOff: 0.15,
     ),
     Product(
+      id: 'p3',
       name: 'Cetirizine',
       imageUrls: [
         'assets/drugs/drug3.jpg',

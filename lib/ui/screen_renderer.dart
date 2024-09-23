@@ -10,11 +10,11 @@ class ScreenRenderer extends StatelessWidget {
 
   final String pathName;
 
-  static const Map<String, Widget> _screens = {
-    HomeScreen.routeName: HomeScreen(),
-    ConsultScreen.routeName: ConsultScreen(),
+  static final Map<String, Widget> _screens = {
+    HomeScreen.routeName: const HomeScreen(),
+    ConsultScreen.routeName: const ConsultScreen(),
     CartScreen.routeName: CartScreen(),
-    UserScreen.routeName: UserScreen(),
+    UserScreen.routeName: const UserScreen(),
   };
 
   static int pathToIndex(String path) {

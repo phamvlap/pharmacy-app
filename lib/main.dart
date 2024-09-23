@@ -18,7 +18,7 @@ class DrugSalesApp extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: const ScreenRenderer(),
+      home: const ScreenRenderer(path: CartScreen.routeName),
       routes: {
         // HomeScreen.routeName: (context) =>
         //     ScreenRenderer(path: HomeScreen.routeName),

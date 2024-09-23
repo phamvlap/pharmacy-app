@@ -1,4 +1,5 @@
 class Product {
+  final String id;
   final String name;
   final List<String> imageUrls;
   final String description;
@@ -13,6 +14,7 @@ class Product {
   final double? salesOff;
 
   Product({
+    required this.id,
     required this.name,
     required this.imageUrls,
     required this.description,
