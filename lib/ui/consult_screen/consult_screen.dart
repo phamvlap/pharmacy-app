@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './../layouts/app_bar.dart';
-import './../layouts/drawer.dart';
-import './../components/navigation_bar.dart';
+import './../layouts/layouts.dart';
+import './../components/components.dart';
 
 class ConsultScreen extends StatelessWidget {
   const ConsultScreen({super.key});

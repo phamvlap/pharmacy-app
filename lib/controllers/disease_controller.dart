@@ -1,4 +1,4 @@
-import './../models/disease.dart';
+import '../models/models.dart';
 
 class DiseaseController {
   final List<Disease> _diseases = [

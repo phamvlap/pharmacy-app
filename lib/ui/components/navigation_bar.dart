@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../screen_renderer.dart';
+import '../screens.dart';
 
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({super.key, required this.routeName});

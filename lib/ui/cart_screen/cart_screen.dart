@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import './../layouts/app_bar.dart';
-import './../layouts/drawer.dart';
+import '../layouts/layouts.dart';
+import '../../models/models.dart';
+import '../../controllers/controllers.dart';
+
 import './empty_cart.dart';
-import './../components/navigation_bar.dart';
-import './../../controllers/cart_controller.dart';
-import './../../models/cart_item.dart';
 import './cart_item_card.dart';
 import './cart_summary.dart';
 

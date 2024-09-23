@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../../utils/app_theme.dart';
-import './../../utils/consts.dart';
+import '../../utils/utils.dart';
 
 class MyAppDrawer extends StatelessWidget {
   const MyAppDrawer({super.key});

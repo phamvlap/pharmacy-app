@@ -1,4 +1,4 @@
-import './../models/product.dart';
+import '../models/models.dart';
 
 class ProductController {
   final List<Product> _products = [

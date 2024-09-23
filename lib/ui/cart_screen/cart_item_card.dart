@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/cart_item.dart';
-import './../../utils/app_theme.dart';
+import '../../utils/utils.dart';
+import '../../models/models.dart';
 
 class CartItemCard extends StatefulWidget {
   final CartItem cartItem;

@@ -1,5 +1,4 @@
-import '../models/cart_item.dart';
-import '../models/product.dart';
+import '../models/models.dart';
 
 class CartController {
   final List<CartItem> _cartItems = [

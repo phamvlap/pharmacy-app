@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import './utils/app_theme.dart';
-import './ui/screen_renderer.dart';
 import './ui/screens.dart';
 
 void main() {

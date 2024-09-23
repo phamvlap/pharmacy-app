@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './../../utils/app_theme.dart';
-import '../../controllers/cart_controller.dart';
+import '../../utils/utils.dart';
+import '../../controllers/controllers.dart';
 
 class CartSummary extends StatefulWidget {
   const CartSummary({super.key});

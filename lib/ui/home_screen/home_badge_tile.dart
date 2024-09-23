@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/app_theme.dart';
+import '../../utils/utils.dart';
 
 class HomeBadgeTile extends StatelessWidget {
   const HomeBadgeTile({

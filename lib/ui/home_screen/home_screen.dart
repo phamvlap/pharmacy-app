@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import './../../utils/app_theme.dart';
-import './../layouts/app_bar.dart';
-import './../layouts/drawer.dart';
+import '../components/components.dart';
+import '../layouts/layouts.dart';
+import '../../utils/utils.dart';
+
 import './home_badge_grid.dart';
 import './home_diseases_grid.dart';
 import './products_grid.dart';
-import './../components/navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

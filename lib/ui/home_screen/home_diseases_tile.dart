@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/disease.dart';
-import '../../utils/app_theme.dart';
+import '../../models/models.dart';
+import '../../utils/utils.dart';
 
 class HomeDiseasesTile extends StatelessWidget {
   final Disease disease;

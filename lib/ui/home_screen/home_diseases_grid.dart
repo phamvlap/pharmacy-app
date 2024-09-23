@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../controllers/disease_controller.dart';
-import '../../models/disease.dart';
+import '../../controllers/controllers.dart';
+import '../../models/models.dart';
 import './home_diseases_tile.dart';
 
 class HomeDiseasesGrid extends StatelessWidget {
