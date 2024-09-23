@@ -26,10 +26,18 @@
 - Giá sản phẩm (đ/hộp), giảm giá  + badge (optional)
 - Mua ngay
 
-## Prodct detail screen
+## Product detail screen
 
 - [ ] Product slide show
 - [ ] Thương hiệu
 - [ ] Product name
 - [ ] Đánh giá
 - [ ] Giá/đơn vị
+
+## Cart screen
+
+## Fix
+
+- [ ] Search bar bug after focusing @ Lap
+- [ ] Drawer and notification icon padding
+- [ ] 
