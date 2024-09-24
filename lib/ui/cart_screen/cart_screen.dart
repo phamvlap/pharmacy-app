@@ -4,9 +4,9 @@ import '../layouts/layouts.dart';
 import '../../models/models.dart';
 import '../../controllers/controllers.dart';
 
-import './empty_cart.dart';
-import './cart_item_card.dart';
-import './cart_summary.dart';
+import 'empty_cart.dart';
+import 'cart_item_list.dart';
+import 'cart_summary.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -15,7 +15,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<CartItem> cartItems = cartController.items;
+    List<CartItem> cartItems = cartController.items;
 
     return Scaffold(
       appBar: const MyAppBar(),
@@ -25,12 +25,7 @@ class CartScreen extends StatelessWidget {
             : Column(
                 children: <Widget>[
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: cartItems.length,
-                      itemBuilder: (context, index) {
-                        return CartItemCard(cartItems[index]);
-                      },
-                    ),
+                    child: CartItemList(cartItems),
                   ),
                   const CartSummary(),
                 ],

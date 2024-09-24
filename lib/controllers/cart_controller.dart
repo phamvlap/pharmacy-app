@@ -18,10 +18,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet every 4 to 6 hours as needed.',
         userTarget: 'Adults and children over 12 years',
-        price: 5.99,
+        price: 59900,
         salesOff: 0.1,
       ),
       quantity: 1,
+      isSelected: true,
     ),
     CartItem(
       product: Product(
@@ -39,10 +40,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet every 6 to 8 hours as needed.',
         userTarget: 'Adults and children over 6 years',
-        price: 6.99,
+        price: 69900,
         salesOff: 0.15,
       ),
       quantity: 1,
+      isSelected: true,
     ),
     CartItem(
       product: Product(
@@ -60,10 +62,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
     CartItem(
       product: Product(
@@ -81,10 +84,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: true,
     ),
     CartItem(
       product: Product(
@@ -102,10 +106,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
     CartItem(
       product: Product(
@@ -123,10 +128,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
     CartItem(
       product: Product(
@@ -144,10 +150,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
     CartItem(
       product: Product(
@@ -165,10 +172,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
     CartItem(
       product: Product(
@@ -186,10 +194,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
     CartItem(
       product: Product(
@@ -207,10 +216,11 @@ class CartController {
         unit: 'Tablet',
         useGuide: 'Take one tablet once daily.',
         userTarget: 'Adults and children over 6 years',
-        price: 8.99,
+        price: 89900,
         salesOff: 0.2,
       ),
       quantity: 1,
+      isSelected: false,
     ),
   ];
 

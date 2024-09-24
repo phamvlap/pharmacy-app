@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/utils.dart';
 import '../../controllers/controllers.dart';
+import '../components/components.dart';
 
 class CartSummary extends StatefulWidget {
   const CartSummary({super.key});
@@ -14,22 +15,17 @@ class _CartSummaryState extends State<CartSummary> {
   bool _expanded = false;
   bool _isChecked = false;
 
+  void _onChanged(bool? value) {
+    setState(
+      () {
+        _isChecked = value!;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartController = CartController();
-
-    Color getColor(Set<WidgetState> states) {
-      const Set<WidgetState> interactiveStates = <WidgetState>{
-        WidgetState.pressed,
-        WidgetState.hovered,
-        WidgetState.focused,
-        WidgetState.selected,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return AppColors.primaryColor;
-      }
-      return AppColors.whiteColor;
-    }
 
     final double totalAmount = cartController.totalAmount;
     final double discountAmount = cartController.discountAmount;
@@ -74,7 +70,7 @@ class _CartSummaryState extends State<CartSummary> {
                     ),
                     const Spacer(),
                     Text(
-                      '${finalAmount.toStringAsFixed(0)}đ',
+                      formatMoney(finalAmount),
                       style: const TextStyle(
                         fontSize: AppFontSizes.textMedium,
                         fontWeight: FontWeight.bold,
@@ -108,15 +104,9 @@ class _CartSummaryState extends State<CartSummary> {
           ),
           Row(
             children: <Widget>[
-              Checkbox(
+              AppCheckBox(
                 value: _isChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    _isChecked = value!;
-                  });
-                },
-                checkColor: AppColors.whiteColor,
-                fillColor: WidgetStateProperty.resolveWith(getColor),
+                onChanged: _onChanged,
               ),
               Text('Tất cả', style: TextStyle(color: Colors.grey[600])),
               const Spacer(),
@@ -170,7 +160,7 @@ class CartSummaryDetail extends StatelessWidget {
             children: <Widget>[
               const Text('Tổng tiền'),
               Text(
-                '${totalAmount.toStringAsFixed(0)}đ',
+                formatMoney(totalAmount),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -183,7 +173,7 @@ class CartSummaryDetail extends StatelessWidget {
             children: <Widget>[
               const Text('Giảm giá'),
               Text(
-                '-${discountAmount.toStringAsFixed(0)}đ',
+                '-${formatMoney(discountAmount)}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -196,7 +186,7 @@ class CartSummaryDetail extends StatelessWidget {
             children: <Widget>[
               const Text('Phí vận chuyển'),
               Text(
-                '${shippingFee.toStringAsFixed(0)}đ',
+                formatMoney(shippingFee),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
