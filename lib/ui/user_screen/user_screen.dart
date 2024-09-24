@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../layouts/layouts.dart';
 import '../components/components.dart';
+import '../../utils/utils.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
-
-  static const routeName = '/profile';
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class UserScreen extends StatelessWidget {
       appBar: MyAppBar(),
       body: Text('User hereeeeee!!!'),
       drawer: MyAppDrawer(),
-      bottomNavigationBar: AppNavigationBar(routeName: routeName),
+      bottomNavigationBar: AppNavigationBar(routeName: RouteNames.profile),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens.dart';
+import '../../utils/utils.dart';
 
 class EmptyCart extends StatelessWidget {
   const EmptyCart({super.key});
@@ -21,7 +21,7 @@ class EmptyCart extends StatelessWidget {
           const Text('Giỏ hàng trống'),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(HomeScreen.routeName);
+              Navigator.of(context).pushNamed(RouteNames.home);
             },
             child: const Text('Khám phá ngay'),
           ),

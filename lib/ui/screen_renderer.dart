@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/utils.dart';
+
 import './screens.dart';
 
 class ScreenRenderer extends StatelessWidget {
   const ScreenRenderer({
-    String path = HomeScreen.routeName,
+    String path = RouteNames.home,
     super.key,
   }) : pathName = path;
 
   final String pathName;
 
   static final Map<String, Widget> _screens = {
-    HomeScreen.routeName: const HomeScreen(),
-    ConsultScreen.routeName: const ConsultScreen(),
-    CartScreen.routeName: CartScreen(),
-    UserScreen.routeName: const UserScreen(),
+    RouteNames.home: const HomeScreen(),
+    RouteNames.consult: const ConsultScreen(),
+    RouteNames.cart: CartScreen(),
+    RouteNames.profile: const UserScreen(),
   };
 
   static int pathToIndex(String path) {
@@ -24,7 +26,7 @@ class ScreenRenderer extends StatelessWidget {
 
   static String indexToPath(int index) {
     if (index < 0 || index >= _screens.length) {
-      return HomeScreen.routeName;
+      return RouteNames.home;
     }
     String path = _screens.keys.toList()[index];
     return path;

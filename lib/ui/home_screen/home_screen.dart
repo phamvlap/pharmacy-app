@@ -11,8 +11,6 @@ import './products_grid.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  static const routeName = '/';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       drawer: const MyAppDrawer(),
-      bottomNavigationBar: const AppNavigationBar(routeName: routeName),
+      bottomNavigationBar: const AppNavigationBar(routeName: RouteNames.home),
     );
   }
 }

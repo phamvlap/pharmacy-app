@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './utils/app_theme.dart';
+import './utils/utils.dart';
 import './ui/screens.dart';
 
 void main() {
@@ -17,16 +17,16 @@ class DrugSalesApp extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: const ScreenRenderer(path: CartScreen.routeName),
+      home: const ScreenRenderer(),
       routes: {
         // HomeScreen.routeName: (context) =>
         //     ScreenRenderer(path: HomeScreen.routeName),
-        ConsultScreen.routeName: (context) =>
-            const ScreenRenderer(path: ConsultScreen.routeName),
-        CartScreen.routeName: (context) =>
-            const ScreenRenderer(path: CartScreen.routeName),
-        UserScreen.routeName: (context) =>
-            const ScreenRenderer(path: UserScreen.routeName),
+        RouteNames.consult: (context) =>
+            const ScreenRenderer(path: RouteNames.consult),
+        RouteNames.cart: (context) =>
+            const ScreenRenderer(path: RouteNames.cart),
+        RouteNames.profile: (context) =>
+            const ScreenRenderer(path: RouteNames.profile),
       },
     );
   }

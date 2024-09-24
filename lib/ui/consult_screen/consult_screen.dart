@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import './../layouts/layouts.dart';
 import './../components/components.dart';
+import '../../utils/utils.dart';
 
 class ConsultScreen extends StatelessWidget {
   const ConsultScreen({super.key});
-
-  static const routeName = '/consult';
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class ConsultScreen extends StatelessWidget {
       appBar: MyAppBar(),
       body: Text('Consult hereeeeee!!!'),
       drawer: MyAppDrawer(),
-      bottomNavigationBar: AppNavigationBar(routeName: routeName),
+      bottomNavigationBar: AppNavigationBar(routeName: RouteNames.consult),
     );
   }
 }
