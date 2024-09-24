@@ -24,15 +24,20 @@ class AppSearchBar extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Tìm kiếm thuốc, dược phẩm...',
-                hintStyle: TextStyle(
-                  color: AppColors.greyColor,
-                  fontSize: AppFontSizes.textExtraSmall,
-                  fontWeight: FontWeight.w400,
+            child: GestureDetector(
+              child: TextField(
+                onTapOutside: (PointerDownEvent even) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                decoration: InputDecoration(
+                  hintText: 'Tìm kiếm thuốc, dược phẩm...',
+                  hintStyle: TextStyle(
+                    color: AppColors.greyColor,
+                    fontSize: AppFontSizes.textExtraSmall,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  border: InputBorder.none,
                 ),
-                border: InputBorder.none,
               ),
             ),
           ),
