@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../utils/utils.dart';
 
-class MyAppDrawer extends StatelessWidget {
+class MyAppDrawer extends StatefulWidget {
   const MyAppDrawer({super.key});
+
+  @override
+  State<MyAppDrawer> createState() => _MyAppDrawerState();
+}
+
+class _MyAppDrawerState extends State<MyAppDrawer> {
+  bool _isLoggedIn = false; // TODO: fetch from auth controller or something
 
   @override
   Widget build(BuildContext context) {
@@ -46,49 +53,105 @@ class MyAppDrawer extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.all(0.0),
                 children: [
-                  ListTile(
+                  DrawerListTile(
                     leading: const Icon(Icons.home, size: 28.0),
-                    title: const Text('Home'),
-                    iconColor: AppColors.greyColor,
-                    textColor: AppColors.greyColor,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                    ),
-                    titleTextStyle: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    title: const Text('Trang chủ'),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(RouteNames.home);
+                    },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.home, size: 28.0),
-                    title: const Text('Home'),
-                    iconColor: AppColors.greyColor,
-                    textColor: AppColors.greyColor,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                    ),
-                    titleTextStyle: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
+                  DrawerListTile(
+                    leading: const Icon(Icons.chat, size: 28.0),
+                    title: const Text('Tư vấn'),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(RouteNames.consult);
+                    },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.home, size: 28.0),
-                    title: const Text('Home'),
-                    iconColor: AppColors.greyColor,
-                    textColor: AppColors.greyColor,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                    ),
-                    titleTextStyle: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
+                  DrawerListTile(
+                    leading: const Icon(Icons.shopping_cart, size: 28.0),
+                    title: const Text('Giỏ hàng'),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(RouteNames.cart);
+                    },
                   ),
+                  if (_isLoggedIn) ...[
+                    DrawerListTile(
+                      leading: const Icon(Icons.person, size: 28.0),
+                      title: const Text('Tài khoản'),
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(RouteNames.profile);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[500],
+                      thickness: 0.5,
+                    ),
+                    DrawerListTile(
+                      leading: const Icon(Icons.logout, size: 28.0),
+                      title: const Text('Đăng xuất'),
+                      onTap: () {
+                        setState(() {
+                          _isLoggedIn = false; // TODO: perform logout action
+                        });
+                      },
+                    ),
+                  ] else ...[
+                    Divider(
+                      color: Colors.grey[500],
+                      thickness: 0.5,
+                    ),
+                    DrawerListTile(
+                      leading: const Icon(Icons.login, size: 28.0),
+                      title: const Text('Đăng nhập'),
+                      onTap: () {
+                        setState(() {
+                          _isLoggedIn = true; // TODO: redirect to login page
+                        });
+                      },
+                    ),
+                  ]
                 ],
               ),
             ),
             const Text('Version 1.0'),
+            const SizedBox(height: 10.0),
           ],
         ),
       ),
+    );
+  }
+}
+
+class DrawerListTile extends StatelessWidget {
+  final Widget leading;
+  final Widget title;
+  final void Function()? onTap;
+
+  const DrawerListTile({
+    super.key,
+    required this.leading,
+    required this.title,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: leading,
+      title: title,
+      iconColor: AppColors.greyColor,
+      textColor: AppColors.greyColor,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+      ),
+      titleTextStyle: const TextStyle(
+        fontWeight: FontWeight.w500,
+      ),
+      onTap: onTap,
     );
   }
 }

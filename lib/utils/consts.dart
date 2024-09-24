@@ -7,4 +7,6 @@ class RouteNames {
   static const cart = '/cart';
   static const consult = '/consult';
   static const profile = '/profile';
+  static const login = '/login';
+  static const logout = '/logout';
 }
