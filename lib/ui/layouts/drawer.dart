@@ -108,9 +108,15 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       leading: const Icon(Icons.login, size: 28.0),
                       title: const Text('Đăng nhập'),
                       onTap: () {
-                        setState(() {
-                          _isLoggedIn = true; // TODO: redirect to login page
-                        });
+                        Navigator.of(context).pushNamed(RouteNames.login);
+                      },
+                    ),
+                    DrawerListTile(
+                      leading: const Icon(Icons.app_registration_rounded,
+                          size: 28.0),
+                      title: const Text('Đăng ký'),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouteNames.register);
                       },
                     ),
                   ]

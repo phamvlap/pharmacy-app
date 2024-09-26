@@ -38,7 +38,9 @@ class NotificationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: 40.0,
+      height: 40.0,
       padding: const EdgeInsets.all(0.0),
       child: ElevatedButton(
         onPressed: onPressed,

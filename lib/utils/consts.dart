@@ -9,4 +9,5 @@ class RouteNames {
   static const profile = '/profile';
   static const login = '/login';
   static const logout = '/logout';
+  static const register = '/register';
 }

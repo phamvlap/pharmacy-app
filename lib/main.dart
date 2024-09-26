@@ -27,6 +27,10 @@ class DrugSalesApp extends StatelessWidget {
             const ScreenRenderer(path: RouteNames.cart),
         RouteNames.profile: (context) =>
             const ScreenRenderer(path: RouteNames.profile),
+        RouteNames.login: (context) =>
+            const ScreenRenderer(path: RouteNames.login),
+        RouteNames.register: (context) =>
+            const ScreenRenderer(path: RouteNames.register),
       },
     );
   }
