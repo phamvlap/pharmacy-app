@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
+import '../../controllers/controllers.dart';
 
 import './screens.dart';
 
@@ -36,6 +38,10 @@ class ScreenRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _screens[pathName] ?? const HomeScreen();
+    final screen = _screens[pathName] ?? const HomeScreen();
+    return ChangeNotifierProvider(
+      create: (context) => AuthManager(),
+      child: screen,
+    );
   }
 }
