@@ -40,7 +40,7 @@ class ScreenRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     final screen = _screens[pathName] ?? const HomeScreen();
     return ChangeNotifierProvider(
-      create: (context) => AuthManager(),
+      create: (context) => AuthController(),
       child: screen,
     );
   }

@@ -3,10 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../controllers/controllers.dart';
 import '../../utils/utils.dart';
-
-// testing
-import '../../controllers/auth_controller.dart';
 
 class MyAppDrawer extends StatelessWidget {
   const MyAppDrawer({super.key});
@@ -33,8 +31,8 @@ class MyAppDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: AppColors.secondaryColor,
-                    width: 1.0,
+                    color: Colors.grey[500]!,
+                    width: 0.5,
                   ),
                 ),
               ),
@@ -52,6 +50,32 @@ class MyAppDrawer extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.all(0.0),
                 children: [
+                  if (context.read<AuthController>().isLoggedIn()) ...[
+                    ListTile(
+                      leading: Image.asset(
+                        'assets/default_avatar.png',
+                        width: 40.0,
+                        height: 40.0,
+                      ),
+                      title: const Text(
+                        'Nguyễn Văn Test',
+                        style: TextStyle(
+                          fontSize: AppFontSizes.textNormal,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '0465435463',
+                        style: TextStyle(
+                          fontSize: AppFontSizes.textSmall,
+                          color: Colors.grey[800]!,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.grey[500],
+                      thickness: 0.5,
+                    ),
+                  ],
                   DrawerListTile(
                     leading: const Icon(Icons.home, size: 28.0),
                     title: const Text('Trang chủ'),
@@ -76,7 +100,7 @@ class MyAppDrawer extends StatelessWidget {
                           .pushReplacementNamed(RouteNames.cart);
                     },
                   ),
-                  if (context.read<AuthManager>().isLoggedIn()) ...[
+                  if (context.read<AuthController>().isLoggedIn()) ...[
                     DrawerListTile(
                       leading: const Icon(Icons.person, size: 28.0),
                       title: const Text('Tài khoản'),

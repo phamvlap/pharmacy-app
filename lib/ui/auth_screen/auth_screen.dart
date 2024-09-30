@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 log('Logging in...');
-                log(context.read<AuthManager>().isLoggedIn().toString());
+                log(context.read<AuthController>().isLoggedIn().toString());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class AuthManager with ChangeNotifier {
+class AuthController with ChangeNotifier {
   bool _isLoggedIn = true;
 
   bool isLoggedIn() {
