@@ -1,11 +1,13 @@
 import './product.dart';
 
 class CartItem {
-  final Product product;
-  final int quantity;
+  Product product;
+  int quantity;
+  bool isSelected;
 
   CartItem({
     required this.product,
     required this.quantity,
+    this.isSelected = false,
   });
 }
