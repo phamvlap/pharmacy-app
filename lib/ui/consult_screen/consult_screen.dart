@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../layouts/layouts.dart';
-import './../components/components.dart';
+import '../components/components.dart';
 import '../../utils/utils.dart';
 
 class ConsultScreen extends StatelessWidget {

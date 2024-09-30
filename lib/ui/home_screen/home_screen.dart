@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../components/components.dart';
-import '../layouts/layouts.dart';
 import '../../utils/utils.dart';
 
 import './home_badge_grid.dart';

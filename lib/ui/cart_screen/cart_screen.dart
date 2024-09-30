@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../layouts/layouts.dart';
-import '../../models/models.dart';
+import '../components/components.dart';
 import '../../controllers/controllers.dart';
+import '../../models/models.dart';
 
-import 'empty_cart.dart';
-import 'cart_item_list.dart';
-import 'cart_summary.dart';
+import './empty_cart.dart';
+import './cart_item_list.dart';
+import './cart_summary.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -32,7 +32,6 @@ class CartScreen extends StatelessWidget {
               ),
       ),
       drawer: const MyAppDrawer(),
-      // bottomNavigationBar: const AppNavigationBar(routeName: routeName),
     );
   }
 }
