@@ -1,16 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
 
-class MyAppDrawer extends StatefulWidget {
+// testing
+import '../../controllers/auth_controller.dart';
+
+class MyAppDrawer extends StatelessWidget {
   const MyAppDrawer({super.key});
-
-  @override
-  State<MyAppDrawer> createState() => _MyAppDrawerState();
-}
-
-class _MyAppDrawerState extends State<MyAppDrawer> {
-  bool _isLoggedIn = false; // TODO: fetch from auth controller or something
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                           .pushReplacementNamed(RouteNames.cart);
                     },
                   ),
-                  if (_isLoggedIn) ...[
+                  if (context.read<AuthManager>().isLoggedIn()) ...[
                     DrawerListTile(
                       leading: const Icon(Icons.person, size: 28.0),
                       title: const Text('Tài khoản'),
@@ -94,9 +93,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
                       leading: const Icon(Icons.logout, size: 28.0),
                       title: const Text('Đăng xuất'),
                       onTap: () {
-                        setState(() {
-                          _isLoggedIn = false; // TODO: perform logout action
-                        });
+                        log('Logging out...');
                       },
                     ),
                   ] else ...[

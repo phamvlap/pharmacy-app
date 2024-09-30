@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../controllers/controllers.dart';
 
 import '../../utils/utils.dart';
 
@@ -40,6 +43,7 @@ class LoginScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 log('Logging in...');
+                log(context.read<AuthManager>().isLoggedIn().toString());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
@@ -82,7 +86,7 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             Text(
-              '--- Hoặc đăng nhập bằng ---',
+              '--- Hoặc ---',
               style: TextStyle(
                 fontSize: AppFontSizes.textSmall,
                 color: Colors.grey[800],
@@ -257,9 +261,9 @@ class ThirdPartyLoginButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(160.0, 40.0),
+        minimumSize: const Size(170.0, 40.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(6.0),
           side: BorderSide(color: Colors.grey[300]!),
         ),
         foregroundColor: AppColors.greyColor,
