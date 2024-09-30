@@ -20,7 +20,7 @@ class HomeBadgeTile extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(
           horizontal: 8.0,
-          vertical: 16.0,
+          vertical: 8.0,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

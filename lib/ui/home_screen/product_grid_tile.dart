@@ -86,13 +86,13 @@ class ProductGridTile extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4.0),
-                          color: AppColors.greyColor.withOpacity(0.7),
+                          color: Colors.grey[300],
                         ),
                         child: Text(
                           '-${(product.salesOff! * 100).toInt()}%',
                           style: TextStyle(
-                            fontSize: 11.0,
-                            color: AppColors.secondaryColor,
+                            fontSize: AppFontSizes.textExtraSmall,
+                            color: AppColors.primaryColor,
                           ),
                         ),
                       ),
