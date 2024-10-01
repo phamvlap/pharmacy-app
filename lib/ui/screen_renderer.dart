@@ -41,7 +41,7 @@ class ScreenRenderer extends StatelessWidget {
     final screen = _screens[pathName] ?? const HomeScreen();
     return ChangeNotifierProvider(
       create: (context) => AuthController(),
-      child: screen,
+      child: SafeArea(child: screen),
     );
   }
 }

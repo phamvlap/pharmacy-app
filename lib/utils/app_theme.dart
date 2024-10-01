@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   static final Color greyColor = Colors.grey[700]!;
+  static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
   static final Color primaryColor = Colors.green[700]!;
   static final Color secondaryColor = Colors.yellow[800]!;
