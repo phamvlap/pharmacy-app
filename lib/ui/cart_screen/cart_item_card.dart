@@ -19,7 +19,9 @@ class CartItemCard extends StatefulWidget {
 }
 
 class _CartItemCardState extends State<CartItemCard> {
+  final double maxDragPosition = -80.0;
   bool _isChecked = false;
+  double _dragPosition = 0.0;
 
   void _onChanged(bool? value) {
     setState(
@@ -29,112 +31,145 @@ class _CartItemCardState extends State<CartItemCard> {
     );
   }
 
-  double calculateSubTotal() {
-    final double subTotal = (widget.cartItem.product.price -
-            (widget.cartItem.product.price *
-                (widget.cartItem.product.salesOff ?? 0.0))) *
-        widget.cartItem.quantity;
+  double calculateSubTotal(CartItem cartItem) {
+    final double subTotal =
+        (cartItem.product.price * (1.0 - (cartItem.product.salesOff ?? 0.0))) *
+            cartItem.quantity;
     return subTotal;
   }
 
   @override
   Widget build(BuildContext context) {
-    final double subTotal = calculateSubTotal();
+    final double subTotal = calculateSubTotal(widget.cartItem);
 
-    return Dismissible(
-      key: ValueKey(widget.cartItem.product.id),
-      background: Container(
-        width: 20.0,
-        color: Colors.red,
-        alignment: Alignment.centerLeft,
-        child: const Icon(
-          Icons.delete,
-          color: AppColors.whiteColor,
-        ),
-      ),
-      direction: DismissDirection.endToStart,
-      dismissThresholds: const <DismissDirection, double>{
-        DismissDirection.endToStart: 0.5,
+    return GestureDetector(
+      onHorizontalDragUpdate: (details) {
+        setState(
+          () {
+            _dragPosition += details.delta.dx;
+            if (_dragPosition < maxDragPosition) {
+              _dragPosition = maxDragPosition;
+            } else if (_dragPosition > 0) {
+              _dragPosition = 0.0;
+            }
+          },
+        );
       },
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            borderRadius: BorderRadius.circular(8.0),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: AppColors.greyColor.withOpacity(0.2),
-                blurRadius: 4.0,
-                offset: const Offset(0, 2),
+      onHorizontalDragEnd: (details) {
+        setState(
+          () {
+            if (_dragPosition < maxDragPosition / 2) {
+              _dragPosition = maxDragPosition;
+            } else {
+              _dragPosition = 0.0;
+            }
+          },
+        );
+      },
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              width: double.infinity,
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: Container(
+                margin: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                  padding: const EdgeInsets.all(2.0),
+                  onPressed: () {
+                    log('delete item');
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.grey[100]!,
+                  ),
+                ),
               ),
-            ],
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              AppCheckBox(
-                value: _isChecked,
-                onChanged: _onChanged,
+          Transform.translate(
+            offset: Offset(_dragPosition, 0),
+            child: Container(
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                borderRadius: BorderRadius.zero,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: AppColors.greyColor.withOpacity(0.2),
+                    blurRadius: 4.0,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-              Image.asset(
-                widget.cartItem.product.imageUrls[0],
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget.cartItem.product.name,
-                      style: const TextStyle(
-                        fontSize: AppFontSizes.textSmall,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  AppCheckBox(
+                    value: _isChecked,
+                    onChanged: _onChanged,
+                  ),
+                  Image.asset(
+                    widget.cartItem.product.imageUrls[0],
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
                         Text(
-                          formatMoney(subTotal),
+                          widget.cartItem.product.name,
                           style: TextStyle(
-                            fontSize: AppFontSizes.textNormal,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primaryColor,
+                            color: AppColors.greyColor,
+                            fontSize: AppFontSizes.textSmall,
+                            fontWeight: FontWeight.w500,
                           ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
-                        QuantityUpdatingPannel(
-                          quantity: widget.cartItem.quantity,
-                          onDecreaseQuantityPressed: () {
-                            setState(
-                              () {
-                                log('decrease');
+                        const SizedBox(height: 4.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              formatMoney(subTotal),
+                              style: TextStyle(
+                                fontSize: AppFontSizes.textNormal,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                            QuantityUpdatingPannel(
+                              quantity: widget.cartItem.quantity,
+                              onDecreaseQuantityPressed: () {
+                                setState(
+                                  () {
+                                    log('decrease');
+                                  },
+                                );
                               },
-                            );
-                          },
-                          onIncreaseQuantityPressed: () {
-                            setState(
-                              () {
-                                log('increase');
+                              onIncreaseQuantityPressed: () {
+                                setState(
+                                  () {
+                                    log('increase');
+                                  },
+                                );
                               },
-                            );
-                          },
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
