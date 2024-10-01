@@ -7,17 +7,18 @@ import '../screens.dart';
 import '../../controllers/controllers.dart';
 import '../../utils/utils.dart';
 import '../components/dialogs/dialogs.dart';
+import '../components/components.dart';
 
 class AppNavigationBar extends StatelessWidget {
-  const AppNavigationBar({super.key, required this.routeName});
+  const AppNavigationBar({
+    super.key,
+    required this.routeName,
+  });
 
   final String routeName;
 
   @override
   Widget build(BuildContext context) {
-    final CartController cartController = CartController();
-    final int itemCount = cartController.itemCount;
-
     return NavigationBar(
       selectedIndex: ScreenRenderer.pathToIndex(routeName),
       onDestinationSelected: (index) {
@@ -44,19 +45,7 @@ class AppNavigationBar extends StatelessWidget {
           label: 'Tư vấn',
         ),
         NavigationDestination(
-          icon: (itemCount > 0)
-              ? Badge(
-                  label: Text(
-                    cartController.itemCount.toString(),
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                    ),
-                  ),
-                  textColor: Colors.white,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: const Icon(Icons.shopping_cart),
-                )
-              : const Icon(Icons.shopping_cart),
+          icon: CartIcon(),
           label: 'Giỏ hàng',
         ),
         const NavigationDestination(
