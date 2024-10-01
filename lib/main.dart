@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './models/models.dart';
+import './controllers/controllers.dart';
 import './utils/utils.dart';
 import './ui/screens.dart';
 
@@ -19,8 +21,6 @@ class DrugSalesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const ScreenRenderer(),
       routes: {
-        // HomeScreen.routeName: (context) =>
-        //     ScreenRenderer(path: HomeScreen.routeName),
         RouteNames.consult: (context) =>
             const ScreenRenderer(path: RouteNames.consult),
         RouteNames.cart: (context) =>
@@ -31,6 +31,20 @@ class DrugSalesApp extends StatelessWidget {
             const ScreenRenderer(path: RouteNames.login),
         RouteNames.register: (context) =>
             const ScreenRenderer(path: RouteNames.register),
+      },
+      onGenerateRoute: (settings) {
+        final productController = ProductController();
+
+        if (settings.name == RouteNames.productDetail) {
+          final String productId = settings.arguments as String;
+          final Product product = productController.findById(productId);
+
+          return MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product),
+          );
+        }
+
+        return null;
       },
     );
   }

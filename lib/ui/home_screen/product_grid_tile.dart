@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './../../utils/utils.dart';
-import './../../models/models.dart';
+import '../../utils/utils.dart';
+import '../../models/models.dart';
 
 class ProductGridTile extends StatelessWidget {
   const ProductGridTile(
@@ -13,6 +13,9 @@ class ProductGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double currentPrice =
+        product.price * (1.0 - (product.salesOff ?? 0.0));
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
@@ -33,10 +36,18 @@ class ProductGridTile extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                height: 120.0,
-                product.imageUrls[0],
-                fit: BoxFit.cover,
+              GestureDetector(
+                child: Image.asset(
+                  height: 120.0,
+                  product.imageUrls[0],
+                  fit: BoxFit.cover,
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    RouteNames.productDetail,
+                    arguments: product.id,
+                  );
+                },
               ),
               const SizedBox(height: 4.0),
               Container(
@@ -61,7 +72,7 @@ class ProductGridTile extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${product.price.toString()}đ',
+                          formatMoney(currentPrice),
                           style: TextStyle(
                             color: AppColors.primaryColor,
                             fontSize: AppFontSizes.textNormal,

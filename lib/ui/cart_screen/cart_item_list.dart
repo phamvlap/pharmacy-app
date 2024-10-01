@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../models/cart_item.dart';
+import '../../models/models.dart';
 
-import 'cart_item_card.dart';
+import './cart_item_card.dart';
 
 class CartItemList extends StatelessWidget {
   final List<CartItem> cartItems;
@@ -17,7 +17,10 @@ class CartItemList extends StatelessWidget {
     return ListView.builder(
       itemCount: cartItems.length,
       itemBuilder: (context, index) {
-        return CartItemCard(cartItems[index]);
+        return Container(
+          margin: const EdgeInsets.symmetric(vertical: 4.0),
+          child: CartItemCard(cartItems[index]),
+        );
       },
     );
   }
