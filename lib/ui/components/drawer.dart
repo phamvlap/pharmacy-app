@@ -81,6 +81,7 @@ class MyAppDrawer extends StatelessWidget {
                   DrawerListTile(
                     leading: const Icon(Icons.home, size: 28.0),
                     title: const Text('Trang chủ'),
+                    routeName: RouteNames.home,
                     onTap: () {
                       Navigator.of(context)
                           .pushReplacementNamed(RouteNames.home);
@@ -89,6 +90,7 @@ class MyAppDrawer extends StatelessWidget {
                   DrawerListTile(
                     leading: const Icon(Icons.chat, size: 28.0),
                     title: const Text('Tư vấn'),
+                    routeName: RouteNames.consult,
                     onTap: () {
                       Navigator.of(context)
                           .pushReplacementNamed(RouteNames.consult);
@@ -97,6 +99,7 @@ class MyAppDrawer extends StatelessWidget {
                   DrawerListTile(
                     leading: const Icon(Icons.shopping_cart, size: 28.0),
                     title: const Text('Giỏ hàng'),
+                    routeName: RouteNames.cart,
                     onTap: () {
                       Navigator.of(context).pushNamed(RouteNames.cart);
                     },
@@ -105,6 +108,7 @@ class MyAppDrawer extends StatelessWidget {
                     DrawerListTile(
                       leading: const Icon(Icons.person, size: 28.0),
                       title: const Text('Tài khoản'),
+                      routeName: RouteNames.profile,
                       onTap: () {
                         Navigator.of(context)
                             .pushReplacementNamed(RouteNames.profile);
@@ -117,6 +121,7 @@ class MyAppDrawer extends StatelessWidget {
                     DrawerListTile(
                       leading: const Icon(Icons.logout, size: 28.0),
                       title: const Text('Đăng xuất'),
+                      routeName: RouteNames.logout,
                       onTap: () {
                         showDialog(
                           context: context,
@@ -133,6 +138,7 @@ class MyAppDrawer extends StatelessWidget {
                     DrawerListTile(
                       leading: const Icon(Icons.login, size: 28.0),
                       title: const Text('Đăng nhập'),
+                      routeName: RouteNames.login,
                       onTap: () {
                         Navigator.of(context).pushNamed(RouteNames.login);
                       },
@@ -141,6 +147,7 @@ class MyAppDrawer extends StatelessWidget {
                       leading: const Icon(Icons.app_registration_rounded,
                           size: 28.0),
                       title: const Text('Đăng ký'),
+                      routeName: RouteNames.register,
                       onTap: () {
                         Navigator.of(context).pushNamed(RouteNames.register);
                       },
@@ -161,17 +168,21 @@ class MyAppDrawer extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   final Widget leading;
   final Widget title;
+  final String? routeName;
   final void Function()? onTap;
 
   const DrawerListTile({
     super.key,
     required this.leading,
     required this.title,
+    this.routeName,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final String? currentRouteName = ModalRoute.of(context)!.settings.name;
+
     return ListTile(
       leading: leading,
       title: title,
@@ -184,6 +195,11 @@ class DrawerListTile extends StatelessWidget {
         fontWeight: FontWeight.w500,
       ),
       onTap: onTap,
+      selected: currentRouteName == routeName,
+      selectedColor: AppColors.primaryColor,
+      selectedTileColor: Colors.grey[200],
+      focusColor: Colors.grey[100],
+      hoverColor: Colors.grey[100],
     );
   }
 }
