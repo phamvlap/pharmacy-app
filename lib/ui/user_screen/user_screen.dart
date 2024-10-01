@@ -13,7 +13,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.grey[100],
+        color: AppColors.mainBackgroundColor,
         child: Column(
           children: [
             const UserInfoSection(),

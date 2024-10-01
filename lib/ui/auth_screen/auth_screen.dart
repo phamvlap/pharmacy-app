@@ -15,9 +15,19 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Consts.appName),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+          ),
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
+        color: AppColors.mainBackgroundColor,
         child: Column(
           children: [
             const Text(
@@ -135,9 +145,19 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Consts.appName),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+          ),
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
+        color: AppColors.mainBackgroundColor,
         child: Column(
           children: [
             const Text(

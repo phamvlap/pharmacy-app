@@ -7,6 +7,7 @@ class AppColors {
   static const Color whiteColor = Colors.white;
   static final Color primaryColor = Colors.green[700]!;
   static final Color secondaryColor = Colors.yellow[800]!;
+  static const Color mainBackgroundColor = Color.fromARGB(255, 248, 248, 248);
 }
 
 class AppFontSizes {

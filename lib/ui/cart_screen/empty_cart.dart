@@ -21,7 +21,7 @@ class EmptyCart extends StatelessWidget {
           const Text('Giỏ hàng trống'),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(RouteNames.home);
+              Navigator.of(context).pushReplacementNamed(RouteNames.home);
             },
             child: const Text('Khám phá ngay'),
           ),

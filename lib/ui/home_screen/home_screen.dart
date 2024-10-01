@@ -14,21 +14,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-        children: [
-          HomeBadgeGrid(),
-          _buildSectionTitle(
-            iconData: Icons.manage_search,
-            title: 'GỢI Ý HÔM NAY',
-          ),
-          const ProductsGrid(),
-          _buildSectionTitle(
-            iconData: Icons.add,
-            title: 'BỆNH',
-          ),
-          const HomeDiseasesGrid(),
-        ],
+      body: Container(
+        color: AppColors.mainBackgroundColor,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+          children: [
+            HomeBadgeGrid(),
+            _buildSectionTitle(
+              iconData: Icons.manage_search,
+              title: 'GỢI Ý HÔM NAY',
+            ),
+            const ProductsGrid(),
+            _buildSectionTitle(
+              iconData: Icons.add,
+              title: 'BỆNH',
+            ),
+            const HomeDiseasesGrid(),
+          ],
+        ),
       ),
       drawer: const MyAppDrawer(),
       bottomNavigationBar: const AppNavigationBar(routeName: RouteNames.home),
