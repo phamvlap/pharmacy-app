@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/controllers.dart';
+import '../components/dialogs/dialogs.dart';
 import '../../utils/utils.dart';
 
 class MyAppDrawer extends StatelessWidget {
@@ -52,25 +53,28 @@ class MyAppDrawer extends StatelessWidget {
                 children: [
                   if (context.read<AuthController>().isLoggedIn()) ...[
                     ListTile(
-                      leading: Image.asset(
-                        'assets/default_avatar.png',
-                        width: 40.0,
-                        height: 40.0,
-                      ),
-                      title: const Text(
-                        'Nguyễn Văn Test',
-                        style: TextStyle(
-                          fontSize: AppFontSizes.textNormal,
+                        leading: Image.asset(
+                          'assets/default_avatar.png',
+                          width: 40.0,
+                          height: 40.0,
                         ),
-                      ),
-                      subtitle: Text(
-                        '0465435463',
-                        style: TextStyle(
-                          fontSize: AppFontSizes.textSmall,
-                          color: Colors.grey[800]!,
+                        title: const Text(
+                          'Nguyễn Văn Test',
+                          style: TextStyle(
+                            fontSize: AppFontSizes.textNormal,
+                          ),
                         ),
-                      ),
-                    ),
+                        subtitle: Text(
+                          '0465435463',
+                          style: TextStyle(
+                            fontSize: AppFontSizes.textSmall,
+                            color: Colors.grey[800]!,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(RouteNames.profile);
+                        }),
                     Divider(
                       color: Colors.grey[500],
                       thickness: 0.5,
@@ -117,7 +121,11 @@ class MyAppDrawer extends StatelessWidget {
                       leading: const Icon(Icons.logout, size: 28.0),
                       title: const Text('Đăng xuất'),
                       onTap: () {
-                        log('Logging out...');
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              const ConfirmLogoutDialog(),
+                        );
                       },
                     ),
                   ] else ...[
