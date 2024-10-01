@@ -24,10 +24,19 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         actions: <Widget>[
           GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 8.0,
               ),
+              child: Icon(Icons.share),
+            ),
+            onTap: () {
+              log('share product');
+            },
+          ),
+          GestureDetector(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 20.0, 0.0),
               child: CartIcon(),
             ),
             onTap: () {
@@ -81,65 +90,33 @@ class ProductDetailScreen extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: TextButton(
-                    style: ButtonStyle(
-                      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.all(12.0),
-                      ),
-                      shape: WidgetStateProperty.all<OutlinedBorder>(
-                        const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                          side: BorderSide.none,
-                        ),
-                      ),
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Colors.grey[200]!,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        AppColors.primaryColor,
-                      ),
-                    ),
+                  child: AppTextButton(
+                    text: 'Thêm vào giỏ hàng',
                     onPressed: () {
                       log('add to cart');
+                      itemQuantityChangingBottomSheet(
+                        context,
+                        product: product,
+                      );
                     },
-                    child: const Text(
-                      'Thêm vào giỏ hàng',
-                      style: TextStyle(
-                        fontSize: AppFontSizes.textMedium,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    minSize: const Size(double.infinity, 48.0),
+                    foregroundColor: AppColors.primaryColor,
+                    backgroundColor: Colors.grey[200]!,
                   ),
                 ),
                 Expanded(
-                  child: TextButton(
-                    style: ButtonStyle(
-                      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.all(12.0),
-                      ),
-                      shape: WidgetStateProperty.all<OutlinedBorder>(
-                        const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                          side: BorderSide.none,
-                        ),
-                      ),
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        AppColors.primaryColor,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        AppColors.whiteColor,
-                      ),
-                    ),
+                  child: AppTextButton(
+                    text: 'Mua ngay',
                     onPressed: () {
                       log('buy now');
+                      itemQuantityChangingBottomSheet(
+                        context,
+                        product: product,
+                      );
                     },
-                    child: const Text(
-                      'Mua ngay',
-                      style: TextStyle(
-                        fontSize: AppFontSizes.textMedium,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    minSize: const Size(double.infinity, 48.0),
+                    foregroundColor: AppColors.whiteColor,
+                    backgroundColor: AppColors.primaryColor,
                   ),
                 ),
               ],

@@ -30,7 +30,7 @@ class ProductDetailHeader extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 4.0),
         SizedBox(
           width: double.infinity,
           child: Text(
@@ -44,7 +44,7 @@ class ProductDetailHeader extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 4.0),
         IntrinsicHeight(
           child: Row(
             children: [
@@ -77,6 +77,7 @@ class ProductDetailHeader extends StatelessWidget {
                     product.unit,
                     style: TextStyle(
                       color: AppColors.primaryColor,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
