@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -100,8 +98,7 @@ class MyAppDrawer extends StatelessWidget {
                     leading: const Icon(Icons.shopping_cart, size: 28.0),
                     title: const Text('Giỏ hàng'),
                     onTap: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(RouteNames.cart);
+                      Navigator.of(context).pushNamed(RouteNames.cart);
                     },
                   ),
                   if (context.read<AuthController>().isLoggedIn()) ...[

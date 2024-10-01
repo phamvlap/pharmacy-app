@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +30,17 @@ class AppNavigationBar extends StatelessWidget {
             );
             return;
           }
+        }
+        if (path == RouteNames.cart) {
+          bool isLoggedIn = context.read<AuthController>().isLoggedIn();
+          if (!isLoggedIn) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => const RequireLoginDialog(),
+            );
+            return;
+          }
+          Navigator.of(context).pushNamed(RouteNames.cart);
         }
         Navigator.of(context).pushReplacementNamed(path);
       },

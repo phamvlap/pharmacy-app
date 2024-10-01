@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../components/components.dart';
 import '../../controllers/controllers.dart';
 import '../../models/models.dart';
 
@@ -16,9 +15,12 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CartItem> cartItems = cartController.items;
+    int itemCount = cartController.itemCount;
 
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: AppBar(
+        title: Text('Giỏ hàng ($itemCount)'),
+      ),
       body: Scaffold(
         body: cartItems.isEmpty
             ? const EmptyCart()
@@ -31,7 +33,6 @@ class CartScreen extends StatelessWidget {
                 ],
               ),
       ),
-      drawer: const MyAppDrawer(),
     );
   }
 }
