@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dart:developer';
+
 import '../components/components.dart';
 import '../../utils/utils.dart';
 
@@ -8,7 +10,56 @@ import './home_diseases_grid.dart';
 import './products_grid.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final List<Map<String, dynamic>> filterItemList = [
+    {
+      'text': 'Tất cả',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+      'isActive': true,
+    },
+    {
+      'text': 'Sản phẩm mới',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+    },
+    {
+      'text': 'Vitamin tổng hợp',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+    },
+    {
+      'text': 'Thực phẩm chức năng',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+    },
+  ];
+  final List<Map<String, dynamic>> filterDiseaseList = [
+    {
+      'text': 'Tất cả',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+      'isActive': true,
+    },
+    {
+      'text': 'Theo lứa tuổi',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+    },
+    {
+      'text': 'Theo đối tượng',
+      'onPressed': () {
+        log('filter button pressed');
+      },
+    },
+  ];
+
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +75,16 @@ class HomeScreen extends StatelessWidget {
               iconData: Icons.manage_search,
               title: 'GỢI Ý HÔM NAY',
             ),
+            FilterButtonList(
+              filterList: filterItemList,
+            ),
             const ProductsGrid(),
             _buildSectionTitle(
               iconData: Icons.add,
               title: 'BỆNH',
+            ),
+            FilterButtonList(
+              filterList: filterDiseaseList,
             ),
             const HomeDiseasesGrid(),
           ],
@@ -68,4 +125,39 @@ Widget _buildSectionTitle({required IconData iconData, required String title}) {
       ],
     ),
   );
+}
+
+class FilterButtonList extends StatelessWidget {
+  final List<dynamic> filterList;
+
+  const FilterButtonList({
+    super.key,
+    required this.filterList,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50.0,
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: filterList.length,
+        itemBuilder: (context, index) {
+          final dynamic filterItem = filterList[index];
+          final List<Widget> returnedWidgets = [
+            FilterTextButton(
+              text: filterItem['text'],
+              onPressed: filterItem['onPressed'],
+              isActive: filterItem['isActive'] ?? false,
+            ),
+          ];
+          if (index + 1 < filterList.length) {
+            returnedWidgets.add(const SizedBox(width: 6.0));
+          }
+          return Row(children: returnedWidgets);
+        },
+      ),
+    );
+  }
 }

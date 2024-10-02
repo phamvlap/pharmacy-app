@@ -15,7 +15,7 @@ class ScreenRenderer extends StatelessWidget {
   final String pathName;
 
   static final Map<String, Widget> _screens = {
-    RouteNames.home: const HomeScreen(),
+    RouteNames.home: HomeScreen(),
     RouteNames.consult: const ConsultScreen(),
     RouteNames.cart: CartScreen(),
     RouteNames.profile: const UserScreen(),
@@ -38,7 +38,7 @@ class ScreenRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screen = _screens[pathName] ?? const HomeScreen();
+    final screen = _screens[pathName] ?? HomeScreen();
     return ChangeNotifierProvider(
       create: (context) => AuthController(),
       child: SafeArea(child: screen),

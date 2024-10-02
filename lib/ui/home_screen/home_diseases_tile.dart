@@ -12,11 +12,15 @@ class HomeDiseasesTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
-          color: Colors.grey[600]!,
-        ),
-        borderRadius: BorderRadius.circular(6.0),
+        borderRadius: BorderRadius.circular(4.0),
+        color: AppColors.whiteColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 0.1,
+            offset: const Offset(0, 0),
+          ),
+        ],
       ),
       clipBehavior: Clip.hardEdge,
       child: Column(
@@ -35,7 +39,8 @@ class HomeDiseasesTile extends StatelessWidget {
                   width: double.infinity,
                   child: Text(
                     disease.title,
-                    style: const TextStyle(
+                    style: TextStyle(
+                      color: AppColors.greyColor,
                       fontSize: AppFontSizes.textMedium,
                       fontWeight: FontWeight.bold,
                     ),
@@ -48,6 +53,9 @@ class HomeDiseasesTile extends StatelessWidget {
                   disease.description,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
+                  style: TextStyle(
+                    color: AppColors.greyColor,
+                  ),
                 ),
               ],
             ),

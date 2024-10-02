@@ -18,13 +18,12 @@ class ProductGridTile extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(4.0),
         color: AppColors.whiteColor,
         boxShadow: [
           BoxShadow(
-            color: AppColors.greyColor,
-            spreadRadius: 0.5,
-            blurRadius: 1,
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 0.1,
             offset: const Offset(0, 0),
           ),
         ],
@@ -55,9 +54,10 @@ class ProductGridTile extends StatelessWidget {
                 width: double.infinity,
                 child: Text(
                   product.name,
-                  style: const TextStyle(
+                  style: TextStyle(
+                    color: AppColors.greyColor,
                     fontSize: AppFontSizes.textSmall,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -79,12 +79,20 @@ class ProductGridTile extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: Text('/'),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text(
+                            '/',
+                            style: TextStyle(
+                              color: AppColors.greyColor,
+                            ),
+                          ),
                         ),
                         Text(
                           product.unit,
+                          style: TextStyle(
+                            color: AppColors.greyColor,
+                          ),
                         ),
                       ],
                     ),
@@ -125,12 +133,12 @@ class ProductGridTile extends StatelessWidget {
 }
 
 class BuyNowButton extends StatelessWidget {
+  final void Function()? onPressed;
+
   const BuyNowButton({
     super.key,
     this.onPressed,
   });
-
-  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -141,14 +149,15 @@ class BuyNowButton extends StatelessWidget {
           AppColors.primaryColor,
         ),
         minimumSize: WidgetStateProperty.all<Size>(
-          const Size(160.0, 44.0),
+          const Size(140.0, 36.0),
         ),
       ),
       child: const Text(
         'Mua ngay',
         style: TextStyle(
           color: AppColors.whiteColor,
-          fontSize: AppFontSizes.textMedium,
+          fontSize: AppFontSizes.textNormal,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
