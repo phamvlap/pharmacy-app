@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dart:developer';
+
 import '../components/components.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,7 +21,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           NotificationButton(
             onPressed: () {
-              print('Notification button pressed');
+              log('Notification button pressed');
             },
           ),
         ],

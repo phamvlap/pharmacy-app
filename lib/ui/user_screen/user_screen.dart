@@ -46,7 +46,7 @@ class UserInfoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 90.0,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.primaryColor,
       ),
       alignment: Alignment.center,
@@ -100,7 +100,7 @@ class OrderSection extends StatelessWidget {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Xem tất cả',
                     style: TextStyle(
                       color: AppColors.primaryColor,
@@ -138,17 +138,16 @@ class OrderSection extends StatelessWidget {
                   },
                 ),
                 OrderInformationButton(
-                  icon: Badge(
-                    alignment: const Alignment(0.2, -0.8),
-                    label: const Icon(
+                  icon: const Badge(
+                    alignment: Alignment(0.2, -0.8),
+                    label: Icon(
                       Icons.check,
                       color: AppColors.whiteColor,
                       size: 10.0,
                     ),
-                    textStyle: const TextStyle(color: Colors.white),
+                    textStyle: TextStyle(color: Colors.white),
                     backgroundColor: AppColors.primaryColor,
-                    child:
-                        const Icon(Icons.local_shipping_outlined, size: 32.0),
+                    child: Icon(Icons.local_shipping_outlined, size: 32.0),
                   ),
                   title: 'Đã giao',
                   onPressed: () {

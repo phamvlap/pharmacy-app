@@ -6,5 +6,6 @@ export './user_screen/user_screen.dart';
 export './user_screen/user_information_screen.dart';
 export './user_screen/edit_user_information_screen.dart';
 export 'my_order_detail_screen/my_order_detail_screen.dart';
-export './auth_screen/auth_screen.dart';
+export './auth_screen/login_screen.dart';
+export './auth_screen/register_screen.dart';
 export './screen_renderer.dart';
