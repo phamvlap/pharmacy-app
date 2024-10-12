@@ -1,13 +1,17 @@
 class User {
   String username;
   String password;
-  String? phoneNumber;
+  String phoneNumber;
   String? avatarUrl;
+  String? gender;
+  String? dateOfBirth;
 
   User({
     required this.username,
     required this.password,
-    this.phoneNumber,
+    required this.phoneNumber,
     this.avatarUrl,
+    this.gender,
+    this.dateOfBirth,
   });
 }

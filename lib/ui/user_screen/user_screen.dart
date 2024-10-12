@@ -211,7 +211,9 @@ class AccountSection extends StatelessWidget {
                 AccountInformationButton(
                   icon: Icons.account_circle_outlined,
                   title: 'Thông tin cá nhân',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(RouteNames.userInformation);
+                  },
                 ),
                 AccountInformationButton(
                   icon: Icons.location_on_outlined,
