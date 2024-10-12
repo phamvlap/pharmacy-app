@@ -33,9 +33,9 @@ class UserInformationScreen extends StatelessWidget {
             const UserInformationRecord(
                 title: 'Số điện thoại', content: '0364235462'),
             Divider(color: Colors.grey[200]),
-            const UserInformationRecord(title: 'Giới tính'),
-            Divider(color: Colors.grey[200]),
             const UserInformationRecord(title: 'Ngày sinh'),
+            Divider(color: Colors.grey[200]),
+            const UserInformationRecord(title: 'Giới tính'),
             const Spacer(),
             ElevatedButton(
               onPressed: () {

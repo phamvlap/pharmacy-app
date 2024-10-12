@@ -181,6 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: AppFontSizes.textSmall,
                       color: Colors.grey[800],
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16.0),
                   Row(
@@ -193,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         logo: Image.asset(
                           'assets/logos/google.png',
                           width: 24.0,
-                          height: 24.0,
+                          height: 48.0,
                         ),
                         label: const Text('Google'),
                       ),
@@ -204,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         logo: Image.asset(
                           'assets/logos/facebook.png',
                           width: 24.0,
-                          height: 24.0,
+                          height: 48.0,
                         ),
                         label: const Text('Facebook'),
                       ),

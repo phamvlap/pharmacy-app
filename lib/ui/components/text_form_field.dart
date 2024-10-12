@@ -14,21 +14,22 @@ class AppTextFormField extends StatefulWidget {
   final bool? autoFocus;
   final TextInputType? keyboardType;
   final bool? hasSuffixIcon;
+  final void Function()? onTap;
 
-  const AppTextFormField({
-    super.key,
-    this.initialValue,
-    this.controller,
-    this.icon,
-    this.label,
-    this.hintText,
-    this.validator,
-    this.onSaved,
-    this.textInputAction,
-    this.autoFocus,
-    this.keyboardType,
-    this.hasSuffixIcon,
-  });
+  const AppTextFormField(
+      {super.key,
+      this.initialValue,
+      this.controller,
+      this.icon,
+      this.label,
+      this.hintText,
+      this.validator,
+      this.onSaved,
+      this.textInputAction,
+      this.autoFocus,
+      this.keyboardType,
+      this.hasSuffixIcon,
+      this.onTap});
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -40,8 +41,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
   @override
   void initState() {
-    _formField['initialValue'] = widget.initialValue ?? '';
     _formField['controller'] = widget.controller;
+    _formField['initialValue'] =
+        (_formField['controller'] == null ? (widget.initialValue ?? '') : null);
     _formField['icon'] = widget.icon;
     _formField['label'] = widget.label ?? '';
     _formField['hintText'] = widget.hintText ?? '';
@@ -52,6 +54,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     _formField['autoFocus'] = widget.autoFocus ?? false;
     _formField['keyboardType'] = widget.keyboardType ?? TextInputType.text;
     _formField['hasSuffixIcon'] = widget.hasSuffixIcon ?? false;
+    _formField['onTap'] = widget.onTap;
     super.initState();
   }
 
@@ -138,6 +141,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           fontWeight: FontWeight.w400,
         ),
         obscureText: _formField['hasSuffixIcon'] ? !isVisibility : false,
+        onTap: _formField['onTap'],
       ),
     );
   }

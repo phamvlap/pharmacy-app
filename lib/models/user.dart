@@ -23,6 +23,8 @@ class User {
     String? password,
     String? phoneNumber,
     String? avatarUrl,
+    String? gender,
+    String? dateOfBirth,
   }) {
     return User(
       id: id ?? this.id,
@@ -30,6 +32,8 @@ class User {
       password: password ?? this.password,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      gender: gender ?? this.gender,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
     );
   }
 }

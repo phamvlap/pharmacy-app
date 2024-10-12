@@ -22,6 +22,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       username: '',
       phoneNumber: '',
       password: '',
+      gender: '',
+      dateOfBirth: '',
     );
     super.initState();
   }

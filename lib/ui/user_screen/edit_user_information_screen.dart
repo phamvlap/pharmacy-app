@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import '../components/components.dart';
 import '../../utils/utils.dart';
+import '../../models/models.dart';
 
 class EditUserInformationScreen extends StatefulWidget {
   const EditUserInformationScreen({super.key});
@@ -18,6 +20,104 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
+  late User _user;
+  final GlobalKey<FormState> _userInformationForm = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    _user = User(
+      id: '',
+      username: '',
+      phoneNumber: '',
+      password: '',
+      gender: '',
+      // dateOfBirth: DateTime(2003, 1, 1),
+      dateOfBirth: DateFormat('yyyy-MM-dd').format(DateTime(2003, 1, 1)),
+    );
+    _dobController.text = _user.dateOfBirth as String;
+    super.initState();
+  }
+
+  String? _validateUsername(String? value) {
+    if (value!.isEmpty) {
+      return 'Vui lòng nhập tên đăng nhập';
+    }
+    return null;
+  }
+
+  String? _validatePhoneNumber(String? value) {
+    if (value!.isEmpty) {
+      return 'Vui lòng nhập số điện thoại';
+    }
+    if (value.length < 10 || value.length > 11) {
+      return 'Số điện thoại có độ dài từ 10 đến 11 số';
+    }
+    return null;
+  }
+
+  Widget _buildUsernameField() {
+    return AppTextFormField(
+      initialValue: _user.username,
+      icon: Icons.person,
+      label: 'Tên đăng nhập',
+      hintText: 'nguyenvana123',
+      validator: (value) => _validateUsername(value!),
+      autoFocus: true,
+      onSaved: (value) {
+        _user = _user.copyWith(username: value);
+      },
+    );
+  }
+
+  Widget _buildPhoneNumberField() {
+    return AppTextFormField(
+      initialValue: _user.phoneNumber,
+      icon: Icons.phone,
+      label: 'Số điện thoại',
+      hintText: '',
+      validator: (value) => _validatePhoneNumber(value!),
+      keyboardType: TextInputType.phone,
+      onSaved: (value) {
+        _user = _user.copyWith(phoneNumber: value);
+      },
+    );
+  }
+
+  Widget _buildDateOfBirthField() {
+    return AppTextFormField(
+      // initialValue: _user.dateOfBirth,
+      icon: Icons.calendar_today,
+      label: 'Ngày sinh',
+      hintText: '',
+      onSaved: (value) {
+        _user = _user.copyWith(dateOfBirth: value);
+      },
+      controller: _dobController,
+      onTap: () async {
+        await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2015),
+          lastDate: DateTime(2025),
+        ).then((selectedDate) {
+          if (selectedDate != null) {
+            setState(() {
+              _selectedDate = selectedDate;
+              _dobController.text =
+                  DateFormat('dd/MM/yyyy').format(selectedDate);
+            });
+          }
+        });
+      },
+    );
+  }
+
+  Future<void> _saveForm() async {
+    final isValid = _userInformationForm.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,24 +141,22 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
                     'assets/default_avatar.png',
                     width: 100,
                     height: 100,
-                    // fit: BoxFit.contain,
+                    fit: BoxFit.contain,
                   ),
-                  const SizedBox(height: 20.0),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Họ và tên',
+                  Form(
+                    key: _userInformationForm,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20.0),
+                        _buildUsernameField(),
+                        const SizedBox(height: 10.0),
+                        _buildPhoneNumberField(),
+                        const SizedBox(height: 10.0),
+                        _buildDateOfBirthField(),
+                        const SizedBox(height: 10.0),
+                      ],
                     ),
-                    controller: _nameController,
                   ),
-                  const SizedBox(height: 10.0),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Số điện thoại',
-                    ),
-                    keyboardType: TextInputType.phone,
-                    controller: _phoneController,
-                  ),
-                  const SizedBox(height: 10.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -100,38 +198,12 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
                     ],
                   ),
                   const SizedBox(height: 10.0),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Ngày sinh',
-                    ),
-                    controller: _dobController,
-                    onTap: () async {
-                      // FocusScope.of(context).requestFocus(FocusNode());
-                      log('Showing date picker');
-                      await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2015),
-                        lastDate: DateTime(2025),
-                      ).then((selectedDate) {
-                        if (selectedDate != null) {
-                          setState(() {
-                            _selectedDate = selectedDate;
-                            _dobController.text =
-                                DateFormat('dd/MM/yyyy').format(selectedDate);
-                          });
-                        }
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 10.0),
-                  const Spacer(),
                 ],
               ),
             ),
             ElevatedButton(
               onPressed: () {
-                log('Updating user information');
+                _saveForm();
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: AppColors.whiteColor,
