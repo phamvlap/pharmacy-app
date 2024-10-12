@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
 
 class EmptyCart extends StatelessWidget {
-  const EmptyCart({super.key});
+  final Widget title;
+
+  const EmptyCart({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class EmptyCart extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 8.0),
-          const Text('Giỏ hàng trống'),
+          title,
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pushReplacementNamed(RouteNames.home);

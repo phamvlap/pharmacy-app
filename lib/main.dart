@@ -42,6 +42,12 @@ class DrugSalesApp extends StatelessWidget {
           return MaterialPageRoute(
             builder: (context) => ProductDetailScreen(product),
           );
+        } else if (settings.name == RouteNames.myOrderDetail) {
+          final int initialIndex = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) =>
+                MyOrderDetailScreen(initialIndex: initialIndex),
+          );
         }
 
         return null;

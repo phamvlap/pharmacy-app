@@ -11,4 +11,5 @@ class RouteNames {
   static const login = '/login';
   static const logout = '/logout';
   static const register = '/register';
+  static const myOrderDetail = '/my_order_detail';
 }

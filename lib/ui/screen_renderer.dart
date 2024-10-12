@@ -21,6 +21,7 @@ class ScreenRenderer extends StatelessWidget {
     RouteNames.profile: const UserScreen(),
     RouteNames.login: const LoginScreen(),
     RouteNames.register: const RegisterScreen(),
+    RouteNames.myOrderDetail: const MyOrderDetailScreen(),
   };
 
   static int pathToIndex(String path) {

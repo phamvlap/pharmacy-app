@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../controllers/controllers.dart';
 import '../../models/models.dart';
 import '../../utils/utils.dart';
+import '../components/components.dart';
 
-import './empty_cart.dart';
 import './cart_item_list.dart';
 import './cart_summary.dart';
 
@@ -35,7 +35,7 @@ class CartScreen extends StatelessWidget {
         body: Container(
           color: AppColors.mainBackgroundColor,
           child: cartItems.isEmpty
-              ? const EmptyCart()
+              ? const EmptyCart(title: Text('Giỏ hàng trống'))
               : Column(
                   children: <Widget>[
                     Expanded(

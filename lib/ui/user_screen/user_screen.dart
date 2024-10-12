@@ -94,7 +94,8 @@ class OrderSection extends StatelessWidget {
                 height: 30.0,
                 child: TextButton(
                   onPressed: () {
-                    log('Going to xem tất cả...');
+                    Navigator.of(context)
+                        .pushNamed(RouteNames.myOrderDetail, arguments: 0);
                   },
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -124,14 +125,16 @@ class OrderSection extends StatelessWidget {
                   icon: const Icon(Icons.sticky_note_2_outlined, size: 32.0),
                   title: 'Chờ xử lý',
                   onPressed: () {
-                    log('Going to chờ xử lý...');
+                    Navigator.of(context)
+                        .pushNamed(RouteNames.myOrderDetail, arguments: 0);
                   },
                 ),
                 OrderInformationButton(
                   icon: const Icon(Icons.local_shipping_outlined, size: 32.0),
                   title: 'Đang giao',
                   onPressed: () {
-                    log('Going to chờ xử lý...');
+                    Navigator.of(context)
+                        .pushNamed(RouteNames.myOrderDetail, arguments: 1);
                   },
                 ),
                 OrderInformationButton(
@@ -149,7 +152,8 @@ class OrderSection extends StatelessWidget {
                   ),
                   title: 'Đã giao',
                   onPressed: () {
-                    log('Going to chờ xử lý...');
+                    Navigator.of(context)
+                        .pushNamed(RouteNames.myOrderDetail, arguments: 2);
                   },
                 ),
                 OrderInformationButton(
@@ -166,7 +170,8 @@ class OrderSection extends StatelessWidget {
                   ),
                   title: 'Đổi trả',
                   onPressed: () {
-                    log('Going to chờ xử lý...');
+                    Navigator.of(context)
+                        .pushNamed(RouteNames.myOrderDetail, arguments: 3);
                   },
                 ),
               ],
