@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 
 import 'dart:developer';
 
-import './../components/components.dart';
-import './../../models/models.dart';
-import './../../controllers/controllers.dart';
-import './../../utils/utils.dart';
+import '../components/components.dart';
+import '../../models/models.dart';
+import '../../controllers/controllers.dart';
+import '../../utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,30 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  String? _validateUsername(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập tên đăng nhập';
-    }
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập mật khẩu';
-    }
-    if (value.length < 6) {
-      return 'Mật khẩu phải có ít nhất 6 ký tự';
-    }
-    return null;
-  }
-
   Widget _buildUsernameField() {
     return AppTextFormField(
       initialValue: _user!.username,
       icon: Icons.person,
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
-      validator: (value) => _validateUsername(value!),
+      validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
         _user = _user!.copyWith(username: value);
@@ -68,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       icon: Icons.lock,
       label: 'Mật khẩu',
       hintText: '',
-      validator: (value) => _validatePassword(value!),
+      validator: (value) => Validator.validatePassword(value!),
       onSaved: (value) {
         _user = _user!.copyWith(password: value);
       },

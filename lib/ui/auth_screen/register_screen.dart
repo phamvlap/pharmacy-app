@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './../../models/models.dart';
-import './../components/components.dart';
-import './../../utils/utils.dart';
+import '../../models/models.dart';
+import '../components/components.dart';
+import '../../utils/utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -13,6 +13,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _registerForm = GlobalKey<FormState>();
+  final TextEditingController _passwordController = TextEditingController();
   late User _user;
 
   @override
@@ -28,46 +29,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
   }
 
-  String? _validateUsername(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập tên đăng nhập';
-    }
-    return null;
-  }
-
-  String? _validatePhoneNumber(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập số điện thoại';
-    }
-    if (value.length < 10 || value.length > 11) {
-      return 'Số điện thoại có độ dài từ 10 đến 11 số';
-    }
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập mật khẩu';
-    }
-    if (value.length < 6) {
-      return 'Mật khẩu phải có ít nhất 6 ký tự';
-    }
-    return null;
-  }
-
-  String? _validateConfirmPassword(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập lại mật khẩu';
-    }
-    if (value.length < 6) {
-      return 'Mật khẩu phải có ít nhất 6 ký tự';
-    }
-    if (value != _user.password) {
-      return 'Mật khẩu không khớp';
-    }
-    return null;
-  }
-
   Future<void> _saveForm() async {
     final isValid = _registerForm.currentState!.validate();
     if (!isValid) {
@@ -81,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       icon: Icons.person,
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
-      validator: (value) => _validateUsername(value!),
+      validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
         _user = _user.copyWith(username: value);
@@ -95,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       icon: Icons.phone,
       label: 'Số điện thoại',
       hintText: '',
-      validator: (value) => _validatePhoneNumber(value!),
+      validator: (value) => Validator.validatePhoneNumber(value!),
       keyboardType: TextInputType.phone,
       onSaved: (value) {
         _user = _user.copyWith(phoneNumber: value);
@@ -106,10 +67,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildPasswordField() {
     return AppTextFormField(
       initialValue: _user.password,
+      controller: _passwordController,
       icon: Icons.lock,
       label: 'Mật khẩu',
       hintText: '',
-      validator: (value) => _validatePassword(value!),
+      validator: (value) => Validator.validatePassword(value!),
       onSaved: (value) {
         _user = _user.copyWith(password: value);
       },
@@ -123,7 +85,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       icon: Icons.lock,
       label: 'Nhập lại mật khẩu',
       hintText: '',
-      validator: (value) => _validateConfirmPassword(value!),
+      validator: (value) => Validator.validateConfirmPassword(
+        _passwordController.text,
+        value!,
+      ),
       hasSuffixIcon: true,
     );
   }

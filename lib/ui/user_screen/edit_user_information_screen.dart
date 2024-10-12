@@ -38,30 +38,13 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
     super.initState();
   }
 
-  String? _validateUsername(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập tên đăng nhập';
-    }
-    return null;
-  }
-
-  String? _validatePhoneNumber(String? value) {
-    if (value!.isEmpty) {
-      return 'Vui lòng nhập số điện thoại';
-    }
-    if (value.length < 10 || value.length > 11) {
-      return 'Số điện thoại có độ dài từ 10 đến 11 số';
-    }
-    return null;
-  }
-
   Widget _buildUsernameField() {
     return AppTextFormField(
       initialValue: _user.username,
       icon: Icons.person,
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
-      validator: (value) => _validateUsername(value!),
+      validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
         _user = _user.copyWith(username: value);
@@ -75,7 +58,7 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
       icon: Icons.phone,
       label: 'Số điện thoại',
       hintText: '',
-      validator: (value) => _validatePhoneNumber(value!),
+      validator: (value) => Validator.validatePhoneNumber(value!),
       keyboardType: TextInputType.phone,
       onSaved: (value) {
         _user = _user.copyWith(phoneNumber: value);
