@@ -109,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ListView(
                 children: [
                   Form(
+                    key: _loginForm,
                     child: Column(
                       children: [
                         _buildUsernameField(),

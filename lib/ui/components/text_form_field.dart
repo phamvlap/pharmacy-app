@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../../utils/utils.dart';
+import '../../utils/utils.dart';
 
 class AppTextFormField extends StatefulWidget {
   final String? initialValue;
@@ -16,20 +16,21 @@ class AppTextFormField extends StatefulWidget {
   final bool? hasSuffixIcon;
   final void Function()? onTap;
 
-  const AppTextFormField(
-      {super.key,
-      this.initialValue,
-      this.controller,
-      this.icon,
-      this.label,
-      this.hintText,
-      this.validator,
-      this.onSaved,
-      this.textInputAction,
-      this.autoFocus,
-      this.keyboardType,
-      this.hasSuffixIcon,
-      this.onTap});
+  const AppTextFormField({
+    super.key,
+    this.initialValue,
+    this.controller,
+    this.icon,
+    this.label,
+    this.hintText,
+    this.validator,
+    this.onSaved,
+    this.textInputAction,
+    this.autoFocus,
+    this.keyboardType,
+    this.hasSuffixIcon,
+    this.onTap,
+  });
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -125,7 +126,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                     );
                   },
                   icon: Icon(
-                    isVisibility ? Icons.visibility : Icons.visibility_off,
+                    isVisibility ? Icons.visibility_off : Icons.visibility,
                     color: AppColors.greyColor,
                   ),
                 )
