@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dart:developer';
+
 import '../../utils/utils.dart';
 import '../../models/models.dart';
 
@@ -73,7 +75,7 @@ class ProductGridTile extends StatelessWidget {
                       children: [
                         Text(
                           formatMoney(currentPrice),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.primaryColor,
                             fontSize: AppFontSizes.textNormal,
                             fontWeight: FontWeight.w600,
@@ -109,7 +111,7 @@ class ProductGridTile extends StatelessWidget {
                         ),
                         child: Text(
                           '-${(product.salesOff! * 100).toInt()}%',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: AppFontSizes.textExtraSmall,
                             color: AppColors.primaryColor,
                           ),
@@ -123,7 +125,7 @@ class ProductGridTile extends StatelessWidget {
           ),
           BuyNowButton(
             onPressed: () {
-              print('Mua ngay');
+              log('Mua ngay');
             },
           ),
         ],

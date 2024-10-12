@@ -26,6 +26,7 @@ class HomeBadgeTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         backgroundColor: const Color.fromARGB(255, 228, 225, 225),
+        foregroundColor: AppColors.primaryColor,
       ),
       onPressed: onPressed,
       child: Column(

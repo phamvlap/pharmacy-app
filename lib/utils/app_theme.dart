@@ -5,7 +5,7 @@ class AppColors {
   static final Color greyColor = Colors.grey[700]!;
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
-  static final Color primaryColor = Colors.green[700]!;
+  static const Color primaryColor = Color.fromARGB(255, 1, 130, 137);
   static final Color secondaryColor = Colors.yellow[800]!;
   static const Color mainBackgroundColor = Color.fromARGB(255, 248, 248, 248);
 }
@@ -119,12 +119,12 @@ class AppTheme {
           },
         ),
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         foregroundColor: AppColors.whiteColor,
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: AppColors.whiteColor,
         backgroundColor: AppColors.primaryColor,
       ),
@@ -137,7 +137,7 @@ class AppTheme {
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) {
             if (states.contains(WidgetState.selected)) {
-              return TextStyle(
+              return const TextStyle(
                 color: AppColors.primaryColor,
                 fontSize: AppFontSizes.textSmall,
                 fontWeight: FontWeight.w500,
@@ -153,7 +153,7 @@ class AppTheme {
         iconTheme: WidgetStateProperty.resolveWith(
           (states) {
             if (states.contains(WidgetState.selected)) {
-              return IconThemeData(
+              return const IconThemeData(
                 color: AppColors.primaryColor,
                 size: AppFontSizes.textLarge,
               );

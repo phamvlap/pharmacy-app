@@ -82,7 +82,7 @@ void itemQuantityChangingBottomSheet(context, {required Product product}) {
                               const SizedBox(height: 8.0),
                               Text(
                                 formatMoney(currentPrice),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppColors.primaryColor,
                                   fontWeight: FontWeight.w500,
                                 ),

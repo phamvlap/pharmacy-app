@@ -24,7 +24,7 @@ class ProductDetailHeader extends StatelessWidget {
             const SizedBox(width: 4.0),
             Text(
               product.brand,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.primaryColor,
               ),
             ),
@@ -50,7 +50,7 @@ class ProductDetailHeader extends StatelessWidget {
             children: [
               Text(
                 formatMoney(newPrice),
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColors.primaryColor,
                   fontSize: AppFontSizes.textLarge,
                   fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class ProductDetailHeader extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
                     '/',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.primaryColor,
                     ),
                     textDirection: TextDirection.values[0],
@@ -75,7 +75,7 @@ class ProductDetailHeader extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Text(
                     product.unit,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.primaryColor,
                       fontWeight: FontWeight.w500,
                     ),

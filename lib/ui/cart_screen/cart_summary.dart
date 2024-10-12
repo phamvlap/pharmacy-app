@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dart:developer';
+
 import '../../utils/utils.dart';
 import '../../controllers/controllers.dart';
 import '../components/components.dart';
@@ -117,7 +119,7 @@ class _CartSummaryState extends State<CartSummary> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    print('Goto mua hàng');
+                    log('Goto mua hàng');
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.whiteColor,

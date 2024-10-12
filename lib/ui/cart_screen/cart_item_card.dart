@@ -137,7 +137,7 @@ class _CartItemCardState extends State<CartItemCard> {
                           children: [
                             Text(
                               formatMoney(subTotal),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: AppFontSizes.textNormal,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.primaryColor,

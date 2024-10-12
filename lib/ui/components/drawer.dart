@@ -35,7 +35,7 @@ class MyAppDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 Consts.appName,
                 style: TextStyle(
                   color: AppColors.primaryColor,

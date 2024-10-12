@@ -103,7 +103,7 @@ Widget _buildSectionTitle({required IconData iconData, required String title}) {
       children: [
         Container(
           padding: const EdgeInsets.all(3.0),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.primaryColor,
           ),
@@ -116,7 +116,7 @@ Widget _buildSectionTitle({required IconData iconData, required String title}) {
         const SizedBox(width: 4.0),
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: AppColors.primaryColor,
             fontSize: AppFontSizes.textMedium,
             fontWeight: FontWeight.bold,

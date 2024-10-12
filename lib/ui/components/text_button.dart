@@ -109,7 +109,7 @@ class FilterTextButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 4.0),
                   isActive
-                      ? Icon(
+                      ? const Icon(
                           Icons.check_rounded,
                           color: AppColors.primaryColor,
                           size: AppFontSizes.textMedium,
