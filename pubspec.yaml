@@ -12,7 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  google_fonts: ^6.2.1
   provider: ^6.1.2
   intl: ^0.19.0
   carousel_slider: 5.0.0
@@ -30,3 +29,12 @@ flutter:
     - assets/diseases/
     - assets/cart/
     - assets/logos/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/Open_Sans/OpenSans-Light.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-Regular.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-Medium.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-Bold.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-SemiBold.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBold.ttf

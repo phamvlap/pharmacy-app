@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   static final Color greyColor = Colors.grey[700]!;
@@ -28,55 +27,55 @@ class AppFontSizes {
 class AppTheme {
   // light text theme
   static TextTheme lightTextTheme = TextTheme(
-    bodyLarge: GoogleFonts.openSans(
+    bodyLarge: TextStyle(
       fontSize: AppFontSizes.bodyLarge,
       fontWeight: FontWeight.w700,
       color: AppColors.greyColor,
     ),
-    displayLarge: GoogleFonts.openSans(
+    displayLarge: TextStyle(
       fontSize: AppFontSizes.displayLarge,
       fontWeight: FontWeight.bold,
       color: AppColors.greyColor,
     ),
-    displayMedium: GoogleFonts.openSans(
+    displayMedium: TextStyle(
       fontSize: AppFontSizes.displayMedium,
       fontWeight: FontWeight.w700,
       color: AppColors.greyColor,
     ),
-    displaySmall: GoogleFonts.openSans(
+    displaySmall: TextStyle(
       fontSize: AppFontSizes.displaySmall,
       fontWeight: FontWeight.w600,
       color: AppColors.greyColor,
     ),
-    titleLarge: GoogleFonts.openSans(
+    titleLarge: TextStyle(
       fontSize: AppFontSizes.titleLarge,
       fontWeight: FontWeight.w600,
       color: AppColors.greyColor,
     ),
   );
   // dark text theme
-  static TextTheme darkTextTheme = TextTheme(
-    bodyLarge: GoogleFonts.openSans(
+  static TextTheme darkTextTheme = const TextTheme(
+    bodyLarge: TextStyle(
       fontSize: AppFontSizes.bodyLarge,
       fontWeight: FontWeight.w700,
       color: AppColors.whiteColor,
     ),
-    displayLarge: GoogleFonts.openSans(
+    displayLarge: TextStyle(
       fontSize: AppFontSizes.bodyLarge,
       fontWeight: FontWeight.bold,
       color: AppColors.whiteColor,
     ),
-    displayMedium: GoogleFonts.openSans(
+    displayMedium: TextStyle(
       fontSize: AppFontSizes.displayMedium,
       fontWeight: FontWeight.w700,
       color: AppColors.whiteColor,
     ),
-    displaySmall: GoogleFonts.openSans(
+    displaySmall: TextStyle(
       fontSize: AppFontSizes.displaySmall,
       fontWeight: FontWeight.w600,
       color: AppColors.whiteColor,
     ),
-    titleLarge: GoogleFonts.openSans(
+    titleLarge: TextStyle(
       fontSize: AppFontSizes.titleLarge,
       fontWeight: FontWeight.w600,
       color: AppColors.whiteColor,
@@ -110,6 +109,7 @@ class AppTheme {
   // light theme
   static ThemeData light() {
     return ThemeData(
+      fontFamily: 'OpenSans',
       colorScheme: lightColorTheme,
       textTheme: lightTextTheme,
       checkboxTheme: CheckboxThemeData(
@@ -171,6 +171,7 @@ class AppTheme {
   // dark theme
   static ThemeData dark() {
     return ThemeData(
+      fontFamily: 'OpenSans',
       colorScheme: darkColorTheme,
       textTheme: darkTextTheme,
       appBarTheme: const AppBarTheme(
