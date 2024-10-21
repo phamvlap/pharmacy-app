@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './models/models.dart';
 import './controllers/controllers.dart';
 import './utils/utils.dart';
 import './ui/screens.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
   runApp(const DrugSalesApp());
 }
 

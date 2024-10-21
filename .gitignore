@@ -44,3 +44,5 @@ app.*.map.json
 
 # local stuff
 /.git-hooks
+/.vscode
+/.env
