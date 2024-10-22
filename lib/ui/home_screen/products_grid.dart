@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../controllers/controllers.dart';
 import './product_grid_tile.dart';
@@ -8,8 +9,7 @@ class ProductsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productController = ProductController();
-    final products = productController.products;
+    final products = context.read<ProductController>().products;
 
     return GridView.builder(
       padding: const EdgeInsets.all(8.0),

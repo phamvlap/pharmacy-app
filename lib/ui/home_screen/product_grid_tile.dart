@@ -15,8 +15,8 @@ class ProductGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double currentPrice =
-        product.price * (1.0 - (product.salesOff ?? 0.0));
+    final double currentPrice = product.price * (1.0 - (product.salesOff));
+    final List<ImageModel> imageList = product.images;
 
     return Container(
       decoration: BoxDecoration(
@@ -38,10 +38,20 @@ class ProductGridTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                child: Image.asset(
-                  height: 120.0,
-                  product.imageUrls[0],
-                  fit: BoxFit.cover,
+                child: FittedBox(
+                  child: imageList.first.featuredImage == null
+                      ? Image.network(
+                          imageList.first.url,
+                          fit: BoxFit.cover,
+                          height: 120.0,
+                          width: 110.0,
+                        )
+                      : Image.file(
+                          imageList.first.featuredImage!,
+                          fit: BoxFit.cover,
+                          height: 120.0,
+                          width: 110.0,
+                        ),
                 ),
                 onTap: () {
                   Navigator.of(context).pushNamed(
@@ -99,10 +109,10 @@ class ProductGridTile extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(width: 8.0),
-                    if (product.salesOff != null)
+                    if (product.salesOff != 0.0)
                       Container(
+                        alignment: Alignment.centerRight,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 4.0,
                           vertical: 2.0,
                         ),
                         decoration: BoxDecoration(
@@ -110,7 +120,7 @@ class ProductGridTile extends StatelessWidget {
                           color: Colors.grey[300],
                         ),
                         child: Text(
-                          '-${(product.salesOff! * 100).toInt()}%',
+                          '-${(product.salesOff * 100).toInt()}%',
                           style: const TextStyle(
                             fontSize: AppFontSizes.textExtraSmall,
                             color: AppColors.primaryColor,

@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'dart:developer';
 
 import '../components/components.dart';
 import '../../utils/utils.dart';
+import '../../controllers/controllers.dart';
 
 import './home_badge_grid.dart';
 import './home_diseases_grid.dart';
 import './products_grid.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, dynamic>> filterItemList = [
     {
       'text': 'Tất cả',
@@ -37,6 +46,7 @@ class HomeScreen extends StatelessWidget {
       },
     },
   ];
+
   final List<Map<String, dynamic>> filterDiseaseList = [
     {
       'text': 'Tất cả',
@@ -59,36 +69,58 @@ class HomeScreen extends StatelessWidget {
     },
   ];
 
-  HomeScreen({super.key});
+  late Future<void> _fetchProducts;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProducts = context.read<ProductController>().fetchAllProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
-      body: Container(
-        color: AppColors.mainBackgroundColor,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-          children: [
-            HomeBadgeGrid(),
-            _buildSectionTitle(
-              iconData: Icons.manage_search,
-              title: 'GỢI Ý HÔM NAY',
+      body: FutureBuilder(
+        future: _fetchProducts,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () async {
+              await context.read<ProductController>().fetchAllProducts();
+            },
+            child: Container(
+              color: AppColors.mainBackgroundColor,
+              child: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                children: [
+                  HomeBadgeGrid(),
+                  _buildSectionTitle(
+                    iconData: Icons.manage_search,
+                    title: 'GỢI Ý HÔM NAY',
+                  ),
+                  FilterButtonList(
+                    filterList: filterItemList,
+                  ),
+                  const ProductsGrid(),
+                  _buildSectionTitle(
+                    iconData: Icons.add,
+                    title: 'BỆNH',
+                  ),
+                  FilterButtonList(
+                    filterList: filterDiseaseList,
+                  ),
+                  const HomeDiseasesGrid(),
+                ],
+              ),
             ),
-            FilterButtonList(
-              filterList: filterItemList,
-            ),
-            const ProductsGrid(),
-            _buildSectionTitle(
-              iconData: Icons.add,
-              title: 'BỆNH',
-            ),
-            FilterButtonList(
-              filterList: filterDiseaseList,
-            ),
-            const HomeDiseasesGrid(),
-          ],
-        ),
+          );
+        },
       ),
       drawer: const MyAppDrawer(),
       bottomNavigationBar: const AppNavigationBar(routeName: RouteNames.home),
