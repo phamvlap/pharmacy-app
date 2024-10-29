@@ -9,8 +9,9 @@ import '../../utils/utils.dart';
 import './carousel_images_slider.dart';
 import './product_detail_header.dart';
 import './product_detail_description.dart';
+import './product_detail_bottom_sheet.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   final Product product;
 
   const ProductDetailScreen(
@@ -19,7 +20,48 @@ class ProductDetailScreen extends StatelessWidget {
   });
 
   @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  int _quantity = 1;
+
+  void _onIncreaseQuantity() {
+    setState(
+      () {
+        _quantity++;
+      },
+    );
+  }
+
+  void _onDecreaseQuantity() {
+    setState(
+      () {
+        _quantity = _quantity > 1 ? _quantity - 1 : 1;
+      },
+    );
+  }
+
+  void _showItemQuantityChangingBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return ProductDetailBottomSheet(
+          buttonText: 'Thêm vào giỏ hàng',
+          product: widget.product,
+          quantity: _quantity,
+          onIncreaseQuantity: _onIncreaseQuantity,
+          onDecreaseQuantity: _onDecreaseQuantity,
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final List<ImageModel> imageList = widget.product.images;
+    final List<String> imageUrls = imageList.map((image) => image.url).toList();
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -62,16 +104,16 @@ class ProductDetailScreen extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    CarouselImagesSlider(product.imageUrls),
+                    CarouselImagesSlider(imageUrls),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          ProductDetailHeader(product),
+                          ProductDetailHeader(widget.product),
                           const SizedBox(height: 8.0),
                           ProductDetailDescription(
-                            product,
+                            widget.product,
                             showedFields: const {
                               "description": "Mô tả",
                               "category": "Danh mục",
@@ -106,10 +148,7 @@ class ProductDetailScreen extends StatelessWidget {
                         text: 'Thêm vào giỏ hàng',
                         onPressed: () {
                           log('add to cart');
-                          itemQuantityChangingBottomSheet(
-                            context,
-                            product: product,
-                          );
+                          _showItemQuantityChangingBottomSheet();
                         },
                         minSize: const Size(double.infinity, 48.0),
                         foregroundColor: AppColors.primaryColor,
@@ -121,10 +160,7 @@ class ProductDetailScreen extends StatelessWidget {
                         text: 'Mua ngay',
                         onPressed: () {
                           log('buy now');
-                          itemQuantityChangingBottomSheet(
-                            context,
-                            product: product,
-                          );
+                          _showItemQuantityChangingBottomSheet();
                         },
                         minSize: const Size(double.infinity, 48.0),
                         foregroundColor: AppColors.whiteColor,

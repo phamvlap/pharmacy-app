@@ -21,8 +21,12 @@ class ProductController with ChangeNotifier {
     return _product;
   }
 
-  Product findById(String id) {
-    return _products.firstWhere((item) => item.id == id);
+  Product? findById(String id) {
+    try {
+      return _products.firstWhere((item) => item.id == id);
+    } catch (error) {
+      return null;
+    }
   }
 
   Map<String, dynamic> toMap(Product product) {

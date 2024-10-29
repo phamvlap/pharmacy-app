@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-import './models/models.dart';
 import './controllers/controllers.dart';
 import './utils/utils.dart';
 import './ui/screens.dart';
@@ -46,14 +45,13 @@ class DrugSalesApp extends StatelessWidget {
               const ScreenRenderer(path: RouteNames.editUserInformation),
         },
         onGenerateRoute: (settings) {
-          final productController = ProductController();
-
           if (settings.name == RouteNames.productDetail) {
             final String productId = settings.arguments as String;
-            final Product product = productController.findById(productId);
 
             return MaterialPageRoute(
-              builder: (context) => ProductDetailScreen(product),
+              builder: (context) => ProductDetailScreen(
+                context.read<ProductController>().findById(productId)!,
+              ),
             );
           } else if (settings.name == RouteNames.myOrderDetail) {
             final int initialIndex = settings.arguments as int;

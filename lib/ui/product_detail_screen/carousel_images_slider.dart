@@ -53,7 +53,7 @@ class _CarouselImagesSliderState extends State<CarouselImagesSlider> {
                   builder: (BuildContext context) {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Image.asset(
+                      child: Image.network(
                         imageUrl,
                         fit: BoxFit.cover,
                       ),

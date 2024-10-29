@@ -14,7 +14,7 @@ class ProductDetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double originalPrice = product.price;
-    final double newPrice = originalPrice * (1.0 - (product.salesOff ?? 0.0));
+    final double newPrice = originalPrice * (1.0 - (product.salesOff));
 
     return Column(
       children: [
