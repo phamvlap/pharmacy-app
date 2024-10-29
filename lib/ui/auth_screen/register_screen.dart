@@ -1,7 +1,11 @@
+import 'dart:developer';
+import 'package:provider/provider.dart';
+
+import 'package:ct484_project/ui/components/dialogs/dialogs.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/models.dart';
 import '../components/components.dart';
+import '../../controllers/controllers.dart';
 import '../../utils/utils.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -14,66 +18,91 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _registerForm = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
-  late User _user;
+  final Map<String, String> _authData = {
+    'username': '',
+    'name': '',
+    'phoneNumber': '',
+    'password': '',
+  };
 
   @override
   void initState() {
-    _user = User(
-      id: '',
-      username: '',
-      phoneNumber: '',
-      password: '',
-      gender: '',
-      dateOfBirth: '',
-    );
     super.initState();
+    _passwordController.text = '12345678';
   }
 
-  Future<void> _saveForm() async {
+  Future<void> _submit() async {
     final isValid = _registerForm.currentState!.validate();
     if (!isValid) {
       return;
+    }
+    _registerForm.currentState!.save();
+    try {
+      await context.read<AuthController>().register(
+          _authData['username']!,
+          _authData['name']!,
+          _authData['password']!,
+          _authData['phoneNumber']!);
+      Navigator.of(context).pushReplacementNamed(RouteNames.login);
+    } catch (error) {
+      log('Error submitting register form: $error');
+      if (mounted) {
+        showErrorDialog(context, error.toString());
+      }
     }
   }
 
   Widget _buildUsernameField() {
     return AppTextFormField(
-      initialValue: _user.username,
       icon: Icons.person,
+      initialValue: 'test42',
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
       validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
-        _user = _user.copyWith(username: value);
+        _authData['username'] = value!;
+      },
+    );
+  }
+
+  Widget _buildNameField() {
+    return AppTextFormField(
+      icon: Icons.person,
+      initialValue: 'Phạm Văn Lặp',
+      label: 'Họ và tên',
+      hintText: 'Nguyễn Văn A',
+      validator: (value) => Validator.validateName(value!),
+      autoFocus: true,
+      onSaved: (value) {
+        _authData['name'] = value!;
       },
     );
   }
 
   Widget _buildPhoneNumberField() {
     return AppTextFormField(
-      initialValue: _user.phoneNumber,
       icon: Icons.phone,
+      initialValue: '0364253427',
       label: 'Số điện thoại',
       hintText: '',
       validator: (value) => Validator.validatePhoneNumber(value!),
       keyboardType: TextInputType.phone,
       onSaved: (value) {
-        _user = _user.copyWith(phoneNumber: value);
+        _authData['phoneNumber'] = value!;
       },
     );
   }
 
   Widget _buildPasswordField() {
     return AppTextFormField(
-      initialValue: _user.password,
       controller: _passwordController,
       icon: Icons.lock,
       label: 'Mật khẩu',
       hintText: '',
       validator: (value) => Validator.validatePassword(value!),
       onSaved: (value) {
-        _user = _user.copyWith(password: value);
+        _authData['password'] = value!;
       },
       hasSuffixIcon: true,
     );
@@ -81,8 +110,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildConfirmPasswordField() {
     return AppTextFormField(
-      initialValue: _user.password,
       icon: Icons.lock,
+      initialValue: '12345678',
       label: 'Nhập lại mật khẩu',
       hintText: '',
       validator: (value) => Validator.validateConfirmPassword(
@@ -124,6 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       children: [
                         _buildUsernameField(),
+                        _buildNameField(),
                         _buildPhoneNumberField(),
                         _buildPasswordField(),
                         _buildConfirmPasswordField(),
@@ -132,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
-                    onPressed: _saveForm,
+                    onPressed: _submit,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,
                       foregroundColor: AppColors.whiteColor,

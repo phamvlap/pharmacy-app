@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
-import '../../controllers/controllers.dart';
 
 import './screens.dart';
 
@@ -42,9 +40,6 @@ class ScreenRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screen = _screens[pathName] ?? HomeScreen();
-    return ChangeNotifierProvider(
-      create: (context) => AuthController(),
-      child: SafeArea(child: screen),
-    );
+    return screen;
   }
 }

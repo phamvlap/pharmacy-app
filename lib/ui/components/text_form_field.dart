@@ -48,7 +48,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     _formField['icon'] = widget.icon;
     _formField['label'] = widget.label ?? '';
     _formField['hintText'] = widget.hintText ?? '';
-    _formField['validator'] = widget.validator ?? _defaultValidator;
+    _formField['validator'] = widget.validator;
     _formField['onSaved'] = widget.onSaved;
     _formField['textInputAction'] =
         widget.textInputAction ?? TextInputAction.next;

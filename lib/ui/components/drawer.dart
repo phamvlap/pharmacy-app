@@ -4,12 +4,16 @@ import 'package:provider/provider.dart';
 import '../../controllers/controllers.dart';
 import '../components/dialogs/dialogs.dart';
 import '../../utils/utils.dart';
+import '../../models/models.dart';
 
 class MyAppDrawer extends StatelessWidget {
   const MyAppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = context.read<AuthController>().isLoggedIn();
+    final User? user = context.read<AuthController>().user;
+
     return Drawer(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
@@ -56,14 +60,14 @@ class MyAppDrawer extends StatelessWidget {
                           width: 40.0,
                           height: 40.0,
                         ),
-                        title: const Text(
-                          'Nguyễn Văn Test',
-                          style: TextStyle(
+                        title: Text(
+                          user!.name,
+                          style: const TextStyle(
                             fontSize: AppFontSizes.textNormal,
                           ),
                         ),
                         subtitle: Text(
-                          '0465435463',
+                          user.phoneNumber,
                           style: TextStyle(
                             fontSize: AppFontSizes.textSmall,
                             color: Colors.grey[800]!,

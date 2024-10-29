@@ -1,19 +1,46 @@
 import 'package:flutter/foundation.dart';
 
+import '../models/models.dart';
+import '../services/services.dart';
+
 class AuthController with ChangeNotifier {
-  bool _isLoggedIn = true;
+  User? _loggedInUser;
+  late final AuthService _authService;
+
+  AuthController() {
+    _authService = AuthService(onAuthChange: onAuthChangeFn);
+  }
+
+  void onAuthChangeFn(User? user) {
+    _loggedInUser = user;
+    notifyListeners();
+  }
 
   bool isLoggedIn() {
-    return _isLoggedIn;
+    return _loggedInUser != null;
   }
 
-  void logout() {
-    _isLoggedIn = false;
-    notifyListeners();
+  User? get user {
+    return _loggedInUser;
   }
 
-  void login() {
-    _isLoggedIn = true;
-    notifyListeners();
+  Future<User> register(
+      String username, String name, String password, String phoneNumber) async {
+    return _authService.register(username, name, password, phoneNumber);
+  }
+
+  Future<User> login(String username, String password) async {
+    return _authService.login(username, password);
+  }
+
+  Future<void> tryAutoLogin() async {
+    final user = await _authService.getUserFromStore();
+    if (user != null) {
+      onAuthChangeFn(user);
+    }
+  }
+
+  Future<void> logout() async {
+    return _authService.logout();
   }
 }

@@ -23,45 +23,63 @@ class DrugSalesApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ProductController(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => AuthController(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => UserController(),
+        ),
       ],
-      child: MaterialApp(
-        theme: theme,
-        debugShowCheckedModeBanner: false,
-        home: const ScreenRenderer(),
-        routes: {
-          RouteNames.consult: (context) =>
-              const ScreenRenderer(path: RouteNames.consult),
-          RouteNames.cart: (context) =>
-              const ScreenRenderer(path: RouteNames.cart),
-          RouteNames.profile: (context) =>
-              const ScreenRenderer(path: RouteNames.profile),
-          RouteNames.login: (context) =>
-              const ScreenRenderer(path: RouteNames.login),
-          RouteNames.register: (context) =>
-              const ScreenRenderer(path: RouteNames.register),
-          RouteNames.userInformation: (context) =>
-              const ScreenRenderer(path: RouteNames.userInformation),
-          RouteNames.editUserInformation: (context) =>
-              const ScreenRenderer(path: RouteNames.editUserInformation),
-        },
-        onGenerateRoute: (settings) {
-          if (settings.name == RouteNames.productDetail) {
-            final String productId = settings.arguments as String;
+      child: Consumer<AuthController>(
+        builder: (context, AuthController, child) {
+          return MaterialApp(
+            theme: theme,
+            debugShowCheckedModeBanner: false,
+            home: AuthController.isLoggedIn()
+                ? const SafeArea(child: ScreenRenderer())
+                : FutureBuilder(
+                    future: AuthController.tryAutoLogin(),
+                    builder: (context, snapshot) {
+                      return snapshot.connectionState == ConnectionState.waiting
+                          ? const SafeArea(child: SplashScreen())
+                          : const SafeArea(child: LoginScreen());
+                    }),
+            routes: {
+              RouteNames.consult: (context) =>
+                  const ScreenRenderer(path: RouteNames.consult),
+              RouteNames.cart: (context) =>
+                  const ScreenRenderer(path: RouteNames.cart),
+              RouteNames.profile: (context) =>
+                  const ScreenRenderer(path: RouteNames.profile),
+              RouteNames.login: (context) =>
+                  const ScreenRenderer(path: RouteNames.login),
+              RouteNames.register: (context) =>
+                  const ScreenRenderer(path: RouteNames.register),
+              RouteNames.userInformation: (context) =>
+                  const ScreenRenderer(path: RouteNames.userInformation),
+              RouteNames.editUserInformation: (context) =>
+                  const ScreenRenderer(path: RouteNames.editUserInformation),
+            },
+            onGenerateRoute: (settings) {
+              if (settings.name == RouteNames.productDetail) {
+                final String productId = settings.arguments as String;
 
-            return MaterialPageRoute(
-              builder: (context) => ProductDetailScreen(
-                context.read<ProductController>().findById(productId)!,
-              ),
-            );
-          } else if (settings.name == RouteNames.myOrderDetail) {
-            final int initialIndex = settings.arguments as int;
-            return MaterialPageRoute(
-              builder: (context) =>
-                  MyOrderDetailScreen(initialIndex: initialIndex),
-            );
-          }
+                return MaterialPageRoute(
+                  builder: (context) => ProductDetailScreen(
+                    context.read<ProductController>().findById(productId)!,
+                  ),
+                );
+              } else if (settings.name == RouteNames.myOrderDetail) {
+                final int initialIndex = settings.arguments as int;
+                return MaterialPageRoute(
+                  builder: (context) =>
+                      MyOrderDetailScreen(initialIndex: initialIndex),
+                );
+              }
 
-          return null;
+              return null;
+            },
+          );
         },
       ),
     );

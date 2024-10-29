@@ -35,6 +35,7 @@ flutter:
     - assets/diseases/
     - assets/cart/
     - assets/logos/
+    - .env
   fonts:
     - family: OpenSans
       fonts:

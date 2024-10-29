@@ -1,20 +1,16 @@
-import './../models/models.dart';
+import 'dart:developer';
 
-class UserController {
-  final List<User> _users = [
-    User(
-      id: '1',
-      username: 'test',
-      password: 'test123',
-      phoneNumber: '0123456789',
-    )
-  ];
+import 'package:flutter/material.dart';
 
-  void addUser(User user) {
-    _users.add(
-      user.copyWith(
-        id: (_users.length + 1).toString(),
-      ),
-    );
+import '../../models/models.dart';
+import '../../services/services.dart';
+
+class UserController with ChangeNotifier {
+  final UserService _userService = UserService();
+  Future<void> updateUser(User user) async {
+    final updatedUser = await _userService.updateUser(user);
+    if (updatedUser != null) {
+      notifyListeners();
+    }
   }
 }

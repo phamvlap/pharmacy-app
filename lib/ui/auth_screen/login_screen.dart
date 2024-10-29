@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'dart:developer';
 
 import '../components/components.dart';
-import '../../models/models.dart';
+import '../components/dialogs/dialogs.dart';
 import '../../controllers/controllers.dart';
 import '../../utils/utils.dart';
 
@@ -17,52 +17,54 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _loginForm = GlobalKey<FormState>();
-
-  late User? _user;
-
-  @override
-  void initState() {
-    _user = User(
-      id: '',
-      username: '',
-      phoneNumber: '',
-      password: '',
-    );
-    super.initState();
-  }
+  final Map<String, String> _authData = {
+    'username': '',
+    'password': '',
+  };
 
   Widget _buildUsernameField() {
     return AppTextFormField(
-      initialValue: _user!.username,
       icon: Icons.person,
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
+      initialValue: 'minhnguyent546',
       validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
-        _user = _user!.copyWith(username: value);
+        _authData['username'] = value!;
       },
     );
   }
 
   Widget _buildPasswordField() {
     return AppTextFormField(
-      initialValue: _user!.password,
       icon: Icons.lock,
       label: 'Mật khẩu',
       hintText: '',
+      initialValue: '88888888',
       validator: (value) => Validator.validatePassword(value!),
       onSaved: (value) {
-        _user = _user!.copyWith(password: value);
+        _authData['password'] = value!;
       },
       hasSuffixIcon: true,
     );
   }
 
-  Future<void> _saveForm() async {
+  Future<void> _submit() async {
     final isValid = _loginForm.currentState!.validate();
     if (!isValid) {
       return;
+    }
+    _loginForm.currentState!.save();
+    try {
+      await context
+          .read<AuthController>()
+          .login(_authData['username']!, _authData['password']!);
+    } catch (error) {
+      log('Error submitting login form: $error');
+      if (mounted) {
+        showErrorDialog(context, error.toString());
+      }
     }
   }
 
@@ -103,11 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () {
-                      _saveForm();
-                      log(context
-                          .read<AuthController>()
-                          .isLoggedIn()
-                          .toString());
+                      _submit();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,
