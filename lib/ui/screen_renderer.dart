@@ -13,7 +13,7 @@ class ScreenRenderer extends StatelessWidget {
   final String pathName;
 
   static final Map<String, Widget> _screens = {
-    RouteNames.home: HomeScreen(),
+    RouteNames.home: const HomeScreen(),
     RouteNames.consult: const ConsultScreen(),
     RouteNames.cart: CartScreen(),
     RouteNames.profile: const UserScreen(),
@@ -39,7 +39,7 @@ class ScreenRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screen = _screens[pathName] ?? HomeScreen();
-    return screen;
+    final screen = _screens[pathName] ?? const HomeScreen();
+    return SafeArea(child: screen);
   }
 }

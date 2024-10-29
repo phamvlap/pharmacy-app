@@ -36,7 +36,7 @@ class DrugSalesApp extends StatelessWidget {
             theme: theme,
             debugShowCheckedModeBanner: false,
             home: AuthController.isLoggedIn()
-                ? const SafeArea(child: ScreenRenderer())
+                ? const ScreenRenderer(path: RouteNames.home)
                 : FutureBuilder(
                     future: AuthController.tryAutoLogin(),
                     builder: (context, snapshot) {
