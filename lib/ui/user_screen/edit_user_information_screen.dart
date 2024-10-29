@@ -29,9 +29,6 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
       id: '',
       username: '',
       phoneNumber: '',
-      password: '',
-      gender: '',
-      // dateOfBirth: DateTime(2003, 1, 1),
       dateOfBirth: DateFormat('yyyy-MM-dd').format(DateTime(2003, 1, 1)),
     );
     _dobController.text = _user.dateOfBirth as String;

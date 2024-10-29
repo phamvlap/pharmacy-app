@@ -1,8 +1,9 @@
 import 'dart:developer';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/utils.dart';
+import '../../../controllers/controllers.dart';
 
 class ConfirmLogoutDialog extends StatelessWidget {
   const ConfirmLogoutDialog({super.key});
@@ -42,7 +43,10 @@ class ConfirmLogoutDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            log('Logging out...');
+            Navigator.of(context)
+              ..pop()
+              ..pushReplacementNamed(RouteNames.home);
+            context.read<AuthController>().logout();
           },
           style: TextButton.styleFrom(
             backgroundColor: AppColors.primaryColor,
