@@ -23,12 +23,13 @@ class AuthService {
   }
 
   Future<User> register(
-      String username, String password, String phoneNumber) async {
+      String username, String name, String password, String phoneNumber) async {
     final pb = await getPocketBase();
     try {
       final record = await pb.collection('users').create(
         body: {
           'username': username,
+          'name': name,
           'password': password,
           'passwordConfirm': password,
           'phoneNumber': phoneNumber,

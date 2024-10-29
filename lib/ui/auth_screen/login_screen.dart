@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       icon: Icons.person,
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
+      initialValue: 'minhnguyent546',
       validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
@@ -40,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       icon: Icons.lock,
       label: 'Mật khẩu',
       hintText: '',
+      initialValue: '88888888',
       validator: (value) => Validator.validatePassword(value!),
       onSaved: (value) {
         _authData['password'] = value!;

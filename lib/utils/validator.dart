@@ -8,6 +8,13 @@ class Validator {
     return null;
   }
 
+  static String? validateName(String? value) {
+    if (value!.isEmpty) {
+      return 'Vui lòng nhập họ và tên';
+    }
+    return null;
+  }
+
   static String? validatePassword(String? value) {
     if (value!.isEmpty) {
       return 'Vui lòng nhập mật khẩu';

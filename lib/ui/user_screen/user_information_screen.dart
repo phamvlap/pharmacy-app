@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
+import '../../models/models.dart';
+import '../../controllers/controllers.dart';
 
 class UserInformationScreen extends StatelessWidget {
   const UserInformationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final User user = context.read<AuthController>().user!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thông tin cá nhân'),
@@ -27,15 +32,16 @@ class UserInformationScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 20.0),
-            const UserInformationRecord(
-                title: 'Họ và tên', content: 'Nguyễn Văn Test'),
+            UserInformationRecord(title: 'Họ và tên', content: user.name),
             Divider(color: Colors.grey[200]),
-            const UserInformationRecord(
-                title: 'Số điện thoại', content: '0364235462'),
+            UserInformationRecord(
+                title: 'Số điện thoại', content: user.phoneNumber),
             Divider(color: Colors.grey[200]),
-            const UserInformationRecord(title: 'Ngày sinh'),
+            UserInformationRecord(
+                title: 'Ngày sinh', content: user.dateOfBirth),
             Divider(color: Colors.grey[200]),
-            const UserInformationRecord(title: 'Giới tính'),
+            UserInformationRecord(
+                title: 'Giới tính', content: user.gender.name),
             const Spacer(),
             ElevatedButton(
               onPressed: () {

@@ -25,8 +25,8 @@ class AuthController with ChangeNotifier {
   }
 
   Future<User> register(
-      String username, String password, String phoneNumber) async {
-    return _authService.register(username, password, phoneNumber);
+      String username, String name, String password, String phoneNumber) async {
+    return _authService.register(username, name, password, phoneNumber);
   }
 
   Future<User> login(String username, String password) async {

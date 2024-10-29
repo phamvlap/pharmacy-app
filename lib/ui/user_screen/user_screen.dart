@@ -1,10 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../components/components.dart';
 import '../components/dialogs/dialogs.dart';
 import '../../utils/utils.dart';
+import '../../models/models.dart';
+import '../../controllers/controllers.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -44,6 +47,7 @@ class UserInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User user = context.read<AuthController>().user!;
     return Container(
       height: 90.0,
       decoration: const BoxDecoration(
@@ -52,16 +56,16 @@ class UserInfoSection extends StatelessWidget {
       alignment: Alignment.center,
       child: ListTile(
         leading: Image.asset('assets/default_avatar.png'),
-        title: const Text(
-          'Nguyễn Văn Test',
-          style: TextStyle(
+        title: Text(
+          user.name,
+          style: const TextStyle(
             fontSize: AppFontSizes.textNormal,
             color: AppColors.whiteColor,
           ),
         ),
-        subtitle: const Text(
-          '0365545638',
-          style: TextStyle(
+        subtitle: Text(
+          user.phoneNumber,
+          style: const TextStyle(
             fontSize: AppFontSizes.textSmall,
             color: AppColors.whiteColor,
           ),

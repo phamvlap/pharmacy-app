@@ -28,6 +28,7 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
     _user = User(
       id: '',
       username: '',
+      name: '',
       phoneNumber: '',
       dateOfBirth: DateFormat('yyyy-MM-dd').format(DateTime(2003, 1, 1)),
     );

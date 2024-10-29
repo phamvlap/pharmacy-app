@@ -20,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final Map<String, String> _authData = {
     'username': '',
+    'name': '',
     'phoneNumber': '',
     'password': '',
   };
@@ -37,8 +38,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     _registerForm.currentState!.save();
     try {
-      await context.read<AuthController>().register(_authData['username']!,
-          _authData['password']!, _authData['phoneNumber']!);
+      await context.read<AuthController>().register(
+          _authData['username']!,
+          _authData['name']!,
+          _authData['password']!,
+          _authData['phoneNumber']!);
       Navigator.of(context).pushReplacementNamed(RouteNames.login);
     } catch (error) {
       log('Error submitting register form: $error');
@@ -58,6 +62,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       autoFocus: true,
       onSaved: (value) {
         _authData['username'] = value!;
+      },
+    );
+  }
+
+  Widget _buildNameField() {
+    return AppTextFormField(
+      icon: Icons.person,
+      initialValue: 'Phạm Văn Lặp',
+      label: 'Họ và tên',
+      hintText: 'Nguyễn Văn A',
+      validator: (value) => Validator.validateName(value!),
+      autoFocus: true,
+      onSaved: (value) {
+        _authData['name'] = value!;
       },
     );
   }
@@ -135,6 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       children: [
                         _buildUsernameField(),
+                        _buildNameField(),
                         _buildPhoneNumberField(),
                         _buildPasswordField(),
                         _buildConfirmPasswordField(),
