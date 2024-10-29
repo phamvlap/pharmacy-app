@@ -85,7 +85,7 @@ class UserInformationRecord extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: AppFontSizes.textNormal),
           ),
-          content != null
+          content != null && content != ""
               ? Text(
                   content!,
                   style: const TextStyle(fontSize: AppFontSizes.textNormal),

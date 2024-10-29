@@ -1,10 +1,14 @@
 import 'dart:developer';
+
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import '../components/components.dart';
 import '../../utils/utils.dart';
+import '../components/dialogs/dialogs.dart';
 import '../../models/models.dart';
+import '../../controllers/controllers.dart';
 
 class EditUserInformationScreen extends StatefulWidget {
   const EditUserInformationScreen({super.key});
@@ -25,14 +29,8 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
 
   @override
   void initState() {
-    _user = User(
-      id: '',
-      username: '',
-      name: '',
-      phoneNumber: '',
-      dateOfBirth: DateFormat('yyyy-MM-dd').format(DateTime(2003, 1, 1)),
-    );
-    _dobController.text = _user.dateOfBirth as String;
+    _user = context.read<AuthController>().user!;
+    _dobController.text = _user.dateOfBirth ?? '';
     super.initState();
   }
 
@@ -46,6 +44,20 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
       autoFocus: true,
       onSaved: (value) {
         _user = _user.copyWith(username: value);
+      },
+    );
+  }
+
+  Widget _buildNameField() {
+    return AppTextFormField(
+      icon: Icons.person,
+      initialValue: _user.name,
+      label: 'Họ và tên',
+      hintText: 'Nguyễn Văn A',
+      validator: (value) => Validator.validateName(value!),
+      autoFocus: true,
+      onSaved: (value) {
+        _user = _user.copyWith(name: value);
       },
     );
   }
@@ -66,7 +78,7 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
 
   Widget _buildDateOfBirthField() {
     return AppTextFormField(
-      // initialValue: _user.dateOfBirth,
+      initialValue: _user.dateOfBirth ?? '',
       icon: Icons.calendar_today,
       label: 'Ngày sinh',
       hintText: '',
@@ -97,6 +109,22 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
     final isValid = _userInformationForm.currentState!.validate();
     if (!isValid) {
       return;
+    }
+
+    _userInformationForm.currentState!.save();
+    try {
+      final userController = context.read<UserController>();
+      await userController.updateUser(_user);
+    } catch (error) {
+      if (mounted) {
+        await showErrorDialog(context, 'Something went wrong.');
+      }
+    }
+
+    if (mounted) {
+      Navigator.of(context)
+        ..pop()
+        ..pushReplacementNamed(RouteNames.userInformation);
     }
   }
 
@@ -131,6 +159,8 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
                         const SizedBox(height: 20.0),
                         _buildUsernameField(),
                         const SizedBox(height: 10.0),
+                        _buildNameField(),
+                        const SizedBox(height: 10.0),
                         _buildPhoneNumberField(),
                         const SizedBox(height: 10.0),
                         _buildDateOfBirthField(),
@@ -148,7 +178,7 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
                           Row(
                             children: [
                               Radio(
-                                value: 'nam',
+                                value: 'male',
                                 groupValue: _selectedGender,
                                 onChanged: (String? value) {
                                   setState(() {
@@ -163,7 +193,7 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
                           Row(
                             children: [
                               Radio(
-                                value: 'nữ',
+                                value: 'female',
                                 groupValue: _selectedGender,
                                 onChanged: (String? value) {
                                   setState(() {
@@ -172,6 +202,21 @@ class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
                                 },
                               ),
                               const Text('Nữ'),
+                            ],
+                          ),
+                          const SizedBox(width: 20.0),
+                          Row(
+                            children: [
+                              Radio(
+                                value: 'other',
+                                groupValue: _selectedGender,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    _selectedGender = value!;
+                                  });
+                                },
+                              ),
+                              const Text('Khác'),
                             ],
                           ),
                         ],

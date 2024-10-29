@@ -24,6 +24,9 @@ class DrugSalesApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => AuthController(),
         ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => UserController(),
+        ),
       ],
       child:
           Consumer<AuthController>(builder: (context, AuthController, child) {

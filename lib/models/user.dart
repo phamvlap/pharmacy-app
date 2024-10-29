@@ -47,7 +47,7 @@ class User {
       'name': name,
       'phoneNumber': phoneNumber,
       'avatarUrl': avatarUrl ?? '',
-      'gender': gender.toString(),
+      'gender': gender.name,
       'dateOfBirth': dateOfBirth ?? '',
     };
   }
