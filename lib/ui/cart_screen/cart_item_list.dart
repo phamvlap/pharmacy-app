@@ -10,11 +10,13 @@ class CartItemList extends StatelessWidget {
   final bool selectedOnly;
   final bool showCartItemCheckbox;
   final bool fixedQuantity;
+  final bool unCheckItemOnRemove;
   const CartItemList({
     super.key,
     this.selectedOnly = false,
     this.showCartItemCheckbox = true,
     this.fixedQuantity = false,
+    this.unCheckItemOnRemove = false,
   });
 
   @override
@@ -35,6 +37,7 @@ class CartItemList extends StatelessWidget {
                 cartItem,
                 showCheckbox: showCartItemCheckbox,
                 fixedQuantity: fixedQuantity,
+                uncheckOnRemove: unCheckItemOnRemove,
               ),
             );
           },

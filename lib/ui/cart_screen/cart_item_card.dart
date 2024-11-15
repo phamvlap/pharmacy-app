@@ -10,12 +10,14 @@ class CartItemCard extends StatefulWidget {
   final CartItem cartItem;
   final bool showCheckbox;
   final bool fixedQuantity;
+  final bool uncheckOnRemove;
 
   const CartItemCard(
     this.cartItem, {
     super.key,
     this.showCheckbox = true,
     this.fixedQuantity = false,
+    this.uncheckOnRemove = false,
   });
 
   @override
@@ -55,7 +57,15 @@ class _CartItemCardState extends State<CartItemCard> {
     }
 
     void onRemoveCartItem() {
-      context.read<CartController>().deleteCartItem(widget.cartItem.productId);
+      if (widget.uncheckOnRemove) {
+        context
+            .read<CartController>()
+            .toggleCartItemSelection(widget.cartItem.productId);
+      } else {
+        context
+            .read<CartController>()
+            .deleteCartItem(widget.cartItem.productId);
+      }
     }
 
     return GestureDetector(

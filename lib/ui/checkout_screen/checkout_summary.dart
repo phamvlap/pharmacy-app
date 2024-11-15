@@ -7,9 +7,9 @@ import '../../utils/utils.dart';
 import '../../controllers/controllers.dart';
 
 class CheckoutSummary extends StatefulWidget {
-  void Function() onCheckoutSubmitted;
+  final void Function() onCheckoutSubmitted;
 
-  CheckoutSummary({super.key, required this.onCheckoutSubmitted});
+  const CheckoutSummary({super.key, required this.onCheckoutSubmitted});
 
   @override
   State<CheckoutSummary> createState() => _CheckoutSummaryState();
@@ -20,7 +20,7 @@ class _CheckoutSummaryState extends State<CheckoutSummary> {
 
   @override
   Widget build(BuildContext context) {
-    final cartController = context.read<CartController>();
+    final cartController = context.watch<CartController>();
 
     final double totalAmount = cartController.totalAmount;
     final double discountAmount = cartController.discountAmount;

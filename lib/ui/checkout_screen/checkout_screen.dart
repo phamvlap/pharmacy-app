@@ -15,20 +15,20 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _name = '';
-  String _email = '';
-  String _address = '';
-  String _phoneNumber = '';
+  final Map<String, String> _data = {
+    'name': '',
+    'address': '',
+    'phoneNumber': '',
+  };
 
   void _submitOrder() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       // Process the order here, e.g. send to server
       log('Order placed:\n'
-          'Name: $_name\n'
-          'Email: $_email\n'
-          'Address: $_address\n'
-          'Phone Number: $_phoneNumber');
+          'Name: $_data["name"]\n'
+          'Address: $_data["address"]\n'
+          'Phone Number: $_data["phoneNumber"]');
     }
   }
 
@@ -65,27 +65,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       }
                       return null;
                     },
-                    onSaved: (value) => _name = value!,
+                    onSaved: (value) => _data["name"] = value!,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (value) {
-                      if (value!.isEmpty || !value.contains('@')) {
-                        return 'Vui lòng nhập email';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) => _email = value!,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Địa chỉ'),
+                    decoration:
+                        const InputDecoration(labelText: 'Địa chỉ giao hàng'),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Vui lòng nhập địa chỉ';
+                        return 'Vui lòng nhập địa chỉ giao hàng';
                       }
                       return null;
                     },
-                    onSaved: (value) => _address = value!,
+                    onSaved: (value) => _data["address"] = value!,
                   ),
                   TextFormField(
                     decoration:
@@ -96,7 +87,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       }
                       return null;
                     },
-                    onSaved: (value) => _phoneNumber = value!,
+                    onSaved: (value) => _data["phoneNumber"] = value!,
                   ),
                 ],
               ),
@@ -117,6 +108,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               selectedOnly: true,
               showCartItemCheckbox: false,
               fixedQuantity: true,
+              unCheckItemOnRemove: true,
             ),
           ),
           CheckoutSummary(onCheckoutSubmitted: _submitOrder),

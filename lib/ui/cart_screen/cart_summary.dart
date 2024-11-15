@@ -129,7 +129,7 @@ class _CartSummaryState extends State<CartSummary> {
                     foregroundColor: AppColors.whiteColor,
                     backgroundColor: AppColors.primaryColor,
                   ),
-                  child: Text('Mua hàng (${cartController.itemCount})'),
+                  child: Text('Mua hàng (${cartController.selectedItemCount})'),
                 ),
               ),
             ],
