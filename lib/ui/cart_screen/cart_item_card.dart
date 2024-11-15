@@ -8,10 +8,14 @@ import '../../controllers/controllers.dart';
 
 class CartItemCard extends StatefulWidget {
   final CartItem cartItem;
+  final bool showCheckbox;
+  final bool fixedQuantity;
 
   const CartItemCard(
     this.cartItem, {
     super.key,
+    this.showCheckbox = true,
+    this.fixedQuantity = false,
   });
 
   @override
@@ -116,15 +120,16 @@ class _CartItemCardState extends State<CartItemCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Consumer<CartController>(
-                    builder: (context, cartController, child) {
-                      return AppCheckBox(
-                        value: cartController
-                            .isSelected(widget.cartItem.productId),
-                        onChanged: onChangeSelection,
-                      );
-                    },
-                  ),
+                  if (widget.showCheckbox)
+                    Consumer<CartController>(
+                      builder: (context, cartController, child) {
+                        return AppCheckBox(
+                          value: cartController
+                              .isSelected(widget.cartItem.productId),
+                          onChanged: onChangeSelection,
+                        );
+                      },
+                    ),
                   FittedBox(
                     child: widget.cartItem.featuredImage != null
                         ? Image.file(
@@ -167,17 +172,26 @@ class _CartItemCardState extends State<CartItemCard> {
                                 color: AppColors.primaryColor,
                               ),
                             ),
-                            Consumer<CartController>(
-                              builder: (context, cartController, child) {
-                                return QuantityUpdatingPannel(
-                                  quantity:
-                                      cartController.getQuantityByProductId(
-                                          widget.cartItem.productId),
-                                  onDecreaseQuantityPressed: onDecreaseQuantity,
-                                  onIncreaseQuantityPressed: onIncreaseQuantity,
-                                );
-                              },
-                            ),
+                            widget.fixedQuantity
+                                ? Row(
+                                    children: [
+                                      Text(
+                                          '${formatMoney(widget.cartItem.price)} x ${widget.cartItem.quantity}'),
+                                    ],
+                                  )
+                                : Consumer<CartController>(
+                                    builder: (context, cartController, child) {
+                                      return QuantityUpdatingPannel(
+                                        quantity: cartController
+                                            .getQuantityByProductId(
+                                                widget.cartItem.productId),
+                                        onDecreaseQuantityPressed:
+                                            onDecreaseQuantity,
+                                        onIncreaseQuantityPressed:
+                                            onIncreaseQuantity,
+                                      );
+                                    },
+                                  ),
                           ],
                         ),
                       ],

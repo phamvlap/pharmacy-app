@@ -14,4 +14,5 @@ class RouteNames {
   static const myOrderDetail = '/my_order_detail';
   static const userInformation = '/user_information';
   static const editUserInformation = '/edit_user_information';
+  static const checkout = '/checkout';
 }

@@ -10,3 +10,4 @@ export './auth_screen/login_screen.dart';
 export './auth_screen/register_screen.dart';
 export './screen_renderer.dart';
 export './splash_screen.dart';
+export './checkout_screen/checkout_screen.dart';

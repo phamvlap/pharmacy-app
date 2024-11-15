@@ -62,6 +62,8 @@ class DrugSalesApp extends StatelessWidget {
                   const ScreenRenderer(path: RouteNames.userInformation),
               RouteNames.editUserInformation: (context) =>
                   const ScreenRenderer(path: RouteNames.editUserInformation),
+              RouteNames.checkout: (context) =>
+                  const ScreenRenderer(path: RouteNames.checkout),
             },
             onGenerateRoute: (settings) {
               if (settings.name == RouteNames.productDetail) {

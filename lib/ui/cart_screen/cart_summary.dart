@@ -119,7 +119,7 @@ class _CartSummaryState extends State<CartSummary> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    log('Goto mua hàng');
+                    Navigator.of(context).pushNamed(RouteNames.checkout);
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.whiteColor,

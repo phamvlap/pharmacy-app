@@ -15,13 +15,14 @@ class ScreenRenderer extends StatelessWidget {
   static final Map<String, Widget> _screens = {
     RouteNames.home: const HomeScreen(),
     RouteNames.consult: const ConsultScreen(),
-    RouteNames.cart: CartScreen(),
+    RouteNames.cart: const CartScreen(),
     RouteNames.profile: const UserScreen(),
     RouteNames.login: const LoginScreen(),
     RouteNames.register: const RegisterScreen(),
     RouteNames.myOrderDetail: const MyOrderDetailScreen(),
     RouteNames.userInformation: const UserInformationScreen(),
     RouteNames.editUserInformation: const EditUserInformationScreen(),
+    RouteNames.checkout: const CheckoutScreen(),
   };
 
   static int pathToIndex(String path) {

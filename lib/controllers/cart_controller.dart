@@ -11,8 +11,16 @@ class CartController with ChangeNotifier {
     return _cartItems.length;
   }
 
+  int get selectedItemCount {
+    return _cartItems.values.where((item) => item.isSelected).length;
+  }
+
   List<CartItem> get cartItems {
     return _cartItems.values.toList();
+  }
+
+  List<CartItem> get selectedCartItems {
+    return _cartItems.values.where((item) => item.isSelected).toList();
   }
 
   Iterable<MapEntry<String, CartItem>> get cartItemEntries {
