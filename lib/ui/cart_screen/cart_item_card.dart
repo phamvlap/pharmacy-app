@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'dart:developer';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
 import '../../models/models.dart';
 import '../components/components.dart';
+import '../../controllers/controllers.dart';
 
 class CartItemCard extends StatefulWidget {
   final CartItem cartItem;
@@ -20,27 +20,39 @@ class CartItemCard extends StatefulWidget {
 
 class _CartItemCardState extends State<CartItemCard> {
   final double maxDragPosition = -80.0;
-  bool _isChecked = false;
   double _dragPosition = 0.0;
-
-  void _onChanged(bool? value) {
-    setState(
-      () {
-        _isChecked = value!;
-      },
-    );
-  }
 
   double calculateSubTotal(CartItem cartItem) {
     final double subTotal =
-        (cartItem.product.price * (1.0 - (cartItem.product.salesOff ?? 0.0))) *
-            cartItem.quantity;
+        (cartItem.price * (1.0 - (cartItem.salesOff))) * cartItem.quantity;
     return subTotal;
   }
 
   @override
   Widget build(BuildContext context) {
     final double subTotal = calculateSubTotal(widget.cartItem);
+
+    void onIncreaseQuantity() {
+      context.read<CartController>().addCartItem(
+            widget.cartItem.copyWith(
+              quantity: 1,
+            ),
+          );
+    }
+
+    void onDecreaseQuantity() {
+      context.read<CartController>().removeCartItem(widget.cartItem.productId);
+    }
+
+    void onChangeSelection(bool? value) {
+      context
+          .read<CartController>()
+          .toggleCartItemSelection(widget.cartItem.productId);
+    }
+
+    void onRemoveCartItem() {
+      context.read<CartController>().deleteCartItem(widget.cartItem.productId);
+    }
 
     return GestureDetector(
       onHorizontalDragUpdate: (details) {
@@ -77,9 +89,7 @@ class _CartItemCardState extends State<CartItemCard> {
                 margin: const EdgeInsets.only(right: 8.0),
                 child: IconButton(
                   padding: const EdgeInsets.all(2.0),
-                  onPressed: () {
-                    log('delete item');
-                  },
+                  onPressed: onRemoveCartItem,
                   icon: Icon(
                     Icons.delete,
                     color: Colors.grey[100]!,
@@ -106,15 +116,29 @@ class _CartItemCardState extends State<CartItemCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  AppCheckBox(
-                    value: _isChecked,
-                    onChanged: _onChanged,
+                  Consumer<CartController>(
+                    builder: (context, cartController, child) {
+                      return AppCheckBox(
+                        value: cartController
+                            .isSelected(widget.cartItem.productId),
+                        onChanged: onChangeSelection,
+                      );
+                    },
                   ),
-                  Image.asset(
-                    widget.cartItem.product.imageUrls[0],
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
+                  FittedBox(
+                    child: widget.cartItem.featuredImage != null
+                        ? Image.file(
+                            widget.cartItem.featuredImage!,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            widget.cartItem.imageUrl,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
@@ -122,7 +146,7 @@ class _CartItemCardState extends State<CartItemCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          widget.cartItem.product.name,
+                          widget.cartItem.name,
                           style: TextStyle(
                             color: AppColors.greyColor,
                             fontSize: AppFontSizes.textSmall,
@@ -143,20 +167,14 @@ class _CartItemCardState extends State<CartItemCard> {
                                 color: AppColors.primaryColor,
                               ),
                             ),
-                            QuantityUpdatingPannel(
-                              quantity: widget.cartItem.quantity,
-                              onDecreaseQuantityPressed: () {
-                                setState(
-                                  () {
-                                    log('decrease');
-                                  },
-                                );
-                              },
-                              onIncreaseQuantityPressed: () {
-                                setState(
-                                  () {
-                                    log('increase');
-                                  },
+                            Consumer<CartController>(
+                              builder: (context, cartController, child) {
+                                return QuantityUpdatingPannel(
+                                  quantity:
+                                      cartController.getQuantityByProductId(
+                                          widget.cartItem.productId),
+                                  onDecreaseQuantityPressed: onDecreaseQuantity,
+                                  onIncreaseQuantityPressed: onIncreaseQuantity,
                                 );
                               },
                             ),

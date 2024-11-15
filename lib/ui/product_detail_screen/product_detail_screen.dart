@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'dart:developer';
 
 import '../components/components.dart';
 import '../../models/models.dart';
+import '../../controllers/controllers.dart';
 import '../../utils/utils.dart';
 
 import './carousel_images_slider.dart';
@@ -42,25 +44,59 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
-  void _showItemQuantityChangingBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return ProductDetailBottomSheet(
-          buttonText: 'Thêm vào giỏ hàng',
-          product: widget.product,
-          quantity: _quantity,
-          onIncreaseQuantity: _onIncreaseQuantity,
-          onDecreaseQuantity: _onDecreaseQuantity,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final List<ImageModel> imageList = widget.product.images;
     final List<String> imageUrls = imageList.map((image) => image.url).toList();
+
+    void onAddToCart() {
+      context.read<CartController>().addCartItem(
+            CartItem(
+              name: widget.product.name,
+              price: widget.product.price,
+              productId: widget.product.id!,
+              imageUrl: widget.product.images.first.url,
+              quantity: _quantity,
+              salesOff: widget.product.salesOff,
+            ),
+          );
+    }
+
+    void onBuyNow() {
+      log('buy now');
+    }
+
+    void showAddToCartBottomSheet() {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return ProductDetailBottomSheet(
+            buttonText: 'Thêm vào giỏ hàng',
+            product: widget.product,
+            quantity: _quantity,
+            onIncreaseQuantity: _onIncreaseQuantity,
+            onDecreaseQuantity: _onDecreaseQuantity,
+            onPressed: onAddToCart,
+          );
+        },
+      );
+    }
+
+    void showBuyNowBottomSheet() {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return ProductDetailBottomSheet(
+            buttonText: 'Thêm vào giỏ hàng',
+            product: widget.product,
+            quantity: _quantity,
+            onIncreaseQuantity: _onIncreaseQuantity,
+            onDecreaseQuantity: _onDecreaseQuantity,
+            onPressed: onBuyNow,
+          );
+        },
+      );
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -87,8 +123,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               },
             ),
             GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 20.0, 0.0),
+              child: const Padding(
+                padding: EdgeInsets.fromLTRB(8.0, 0.0, 20.0, 0.0),
                 child: CartIcon(),
               ),
               onTap: () {
@@ -148,7 +184,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         text: 'Thêm vào giỏ hàng',
                         onPressed: () {
                           log('add to cart');
-                          _showItemQuantityChangingBottomSheet();
+                          showAddToCartBottomSheet();
                         },
                         minSize: const Size(double.infinity, 48.0),
                         foregroundColor: AppColors.primaryColor,
@@ -160,7 +196,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         text: 'Mua ngay',
                         onPressed: () {
                           log('buy now');
-                          _showItemQuantityChangingBottomSheet();
+                          showBuyNowBottomSheet();
                         },
                         minSize: const Size(double.infinity, 48.0),
                         foregroundColor: AppColors.whiteColor,

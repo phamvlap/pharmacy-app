@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../controllers/controllers.dart';
-import '../../models/models.dart';
 import '../../utils/utils.dart';
 import '../components/components.dart';
 
 import './cart_item_list.dart';
 import './cart_summary.dart';
 
-class CartScreen extends StatelessWidget {
-  CartScreen({super.key});
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
 
-  final cartController = CartController();
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  late Future<void> _fetchCartItems;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCartItems = context.read<CartController>().fetchAllCartItems();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<CartItem> cartItems = cartController.items;
+    final CartController cartController = context.watch<CartController>();
     int itemCount = cartController.itemCount;
 
     return Scaffold(
@@ -31,20 +42,33 @@ class CartScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Scaffold(
-        body: Container(
-          color: AppColors.mainBackgroundColor,
-          child: cartItems.isEmpty
-              ? const EmptyCart(title: Text('Giỏ hàng trống'))
-              : Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: CartItemList(cartItems),
+      body: FutureBuilder(
+        future: _fetchCartItems,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () => context.read<CartController>().fetchAllCartItems(),
+            child: Container(
+              color: AppColors.mainBackgroundColor,
+              child: itemCount == 0
+                  ? const EmptyCart(
+                      title: Text('Giỏ hàng trống'),
+                    )
+                  : const Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: CartItemList(),
+                        ),
+                        CartSummary(),
+                      ],
                     ),
-                    const CartSummary(),
-                  ],
-                ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

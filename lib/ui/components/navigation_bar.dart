@@ -44,12 +44,12 @@ class AppNavigationBar extends StatelessWidget {
         }
         Navigator.of(context).pushReplacementNamed(path);
       },
-      destinations: [
-        const NavigationDestination(
+      destinations: const <Widget>[
+        NavigationDestination(
           icon: Icon(Icons.home),
           label: 'Trang chủ',
         ),
-        const NavigationDestination(
+        NavigationDestination(
           icon: Icon(Icons.chat),
           label: 'Tư vấn',
         ),
@@ -57,7 +57,7 @@ class AppNavigationBar extends StatelessWidget {
           icon: CartIcon(),
           label: 'Giỏ hàng',
         ),
-        const NavigationDestination(
+        NavigationDestination(
           icon: Icon(Icons.person),
           label: 'Tài khoản',
         ),

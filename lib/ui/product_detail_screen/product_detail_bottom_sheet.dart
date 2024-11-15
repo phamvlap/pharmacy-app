@@ -12,6 +12,7 @@ class ProductDetailBottomSheet extends StatefulWidget {
   final int? quantity;
   final Function()? onIncreaseQuantity;
   final Function()? onDecreaseQuantity;
+  final Function()? onPressed;
 
   const ProductDetailBottomSheet({
     super.key,
@@ -20,6 +21,7 @@ class ProductDetailBottomSheet extends StatefulWidget {
     this.quantity,
     this.onIncreaseQuantity,
     this.onDecreaseQuantity,
+    this.onPressed,
   });
 
   @override
@@ -178,7 +180,7 @@ class _ProductDetailBottomSheetState extends State<ProductDetailBottomSheet> {
           AppTextButton(
             text: widget.buttonText,
             onPressed: () {
-              log('buy');
+              widget.onPressed!();
             },
             minSize: const Size(double.infinity, 48.0),
             foregroundColor: AppColors.whiteColor,

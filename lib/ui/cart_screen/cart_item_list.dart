@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
+import '../../controllers/controllers.dart';
 
 import './cart_item_card.dart';
 
 class CartItemList extends StatelessWidget {
-  final List<CartItem> cartItems;
-
-  const CartItemList(
-    this.cartItems, {
-    super.key,
-  });
+  const CartItemList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: cartItems.length,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 4.0),
-          child: CartItemCard(cartItems[index]),
+    return Consumer<CartController>(
+      builder: (context, cartController, child) {
+        return ListView.builder(
+          itemCount: cartController.itemCount,
+          itemBuilder: (context, index) {
+            final CartItem cartItem = cartController.cartItems[index];
+
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 4.0),
+              child: CartItemCard(cartItem),
+            );
+          },
         );
       },
     );
