@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'dart:developer';
 
@@ -19,7 +20,7 @@ class _CheckoutSummaryState extends State<CheckoutSummary> {
 
   @override
   Widget build(BuildContext context) {
-    final cartController = CartController();
+    final cartController = context.read<CartController>();
 
     final double totalAmount = cartController.totalAmount;
     final double discountAmount = cartController.discountAmount;
@@ -112,7 +113,7 @@ class _CheckoutSummaryState extends State<CheckoutSummary> {
                     foregroundColor: AppColors.whiteColor,
                     backgroundColor: AppColors.primaryColor,
                   ),
-                  child: Text('Đặt hàng (${cartController.itemCount})'),
+                  child: Text('Đặt hàng (${cartController.selectedItemCount})'),
                 ),
               ),
             ],
