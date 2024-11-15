@@ -157,42 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 16.0),
-                  Text(
-                    '--- Hoặc ---',
-                    style: TextStyle(
-                      fontSize: AppFontSizes.textSmall,
-                      color: Colors.grey[800],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ThirdPartyLoginButton(
-                        onPressed: () {
-                          log('Going to login with google...');
-                        },
-                        logo: Image.asset(
-                          'assets/logos/google.png',
-                          width: 24.0,
-                          height: 48.0,
-                        ),
-                        label: const Text('Google'),
-                      ),
-                      ThirdPartyLoginButton(
-                        onPressed: () {
-                          log('Going to login with facebook...');
-                        },
-                        logo: Image.asset(
-                          'assets/logos/facebook.png',
-                          width: 24.0,
-                          height: 48.0,
-                        ),
-                        label: const Text('Facebook'),
-                      ),
-                    ],
-                  ),
+                  // const AlternativeLoginOptions(),
                 ],
               ),
             ),
@@ -234,6 +199,54 @@ class ThirdPartyLoginButton extends StatelessWidget {
           label,
         ],
       ),
+    );
+  }
+}
+
+class AlternativeLoginOptions extends StatelessWidget {
+  const AlternativeLoginOptions({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          '--- Hoặc ---',
+          style: TextStyle(
+            fontSize: AppFontSizes.textSmall,
+            color: Colors.grey[800],
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ThirdPartyLoginButton(
+              onPressed: () {
+                log('Going to login with google...');
+              },
+              logo: Image.asset(
+                'assets/logos/google.png',
+                width: 24.0,
+                height: 48.0,
+              ),
+              label: const Text('Google'),
+            ),
+            ThirdPartyLoginButton(
+              onPressed: () {
+                log('Going to login with facebook...');
+              },
+              logo: Image.asset(
+                'assets/logos/facebook.png',
+                width: 24.0,
+                height: 48.0,
+              ),
+              label: const Text('Facebook'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
