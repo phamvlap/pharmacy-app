@@ -50,26 +50,29 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> _submit() async {
-    final isValid = _loginForm.currentState!.validate();
-    if (!isValid) {
-      return;
+  @override
+  Widget build(BuildContext context) {
+    Future<void> fetchCartItems() async {
+      await context.read<CartController>().fetchAllCartItems();
     }
-    _loginForm.currentState!.save();
-    try {
-      await context
-          .read<AuthController>()
-          .login(_authData['username']!, _authData['password']!);
-    } catch (error) {
-      log('Error submitting login form: $error');
-      if (mounted) {
+
+    Future<void> submit() async {
+      final isValid = _loginForm.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
+      _loginForm.currentState!.save();
+      try {
+        await context
+            .read<AuthController>()
+            .login(_authData['username']!, _authData['password']!);
+        await fetchCartItems();
+      } catch (error) {
+        log('Error submitting login form: $error');
         showErrorDialog(context, error.toString());
       }
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Đăng nhập'),
@@ -105,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () {
-                      _submit();
+                      submit();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,

@@ -11,7 +11,6 @@ class MyAppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoggedIn = context.read<AuthController>().isLoggedIn();
     final User? user = context.read<AuthController>().user;
 
     return Drawer(
