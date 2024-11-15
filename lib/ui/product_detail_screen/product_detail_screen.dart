@@ -55,6 +55,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               name: widget.product.name,
               price: widget.product.price,
               productId: widget.product.id!,
+              imageId: widget.product.images.first.id,
               imageUrl: widget.product.images.first.url,
               quantity: _quantity,
               salesOff: widget.product.salesOff,

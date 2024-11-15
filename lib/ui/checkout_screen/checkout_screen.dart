@@ -71,6 +71,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TextFormField(
+                    initialValue: 'Lap',
                     decoration: const InputDecoration(labelText: 'Họ tên'),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -81,6 +82,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     onSaved: (value) => _data["name"] = value!,
                   ),
                   TextFormField(
+                    initialValue: 'An Giang',
                     decoration:
                         const InputDecoration(labelText: 'Địa chỉ giao hàng'),
                     validator: (value) {

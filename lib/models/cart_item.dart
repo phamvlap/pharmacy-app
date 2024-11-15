@@ -5,6 +5,7 @@ class CartItem {
   final String name;
   final File? featuredImage;
   final String imageUrl;
+  final String? imageId;
   final int quantity;
   final double price;
   final String productId;
@@ -16,6 +17,7 @@ class CartItem {
     required this.name,
     this.featuredImage,
     this.imageUrl = '',
+    this.imageId,
     this.quantity = 1,
     required this.price,
     required this.productId,
@@ -28,6 +30,7 @@ class CartItem {
     String? name,
     File? featuredImage,
     String? imageUrl,
+    String? imageId,
     int? quantity,
     double? price,
     String? productId,
@@ -40,6 +43,7 @@ class CartItem {
       featuredImage: featuredImage ?? this.featuredImage,
       imageUrl: imageUrl ?? this.imageUrl,
       quantity: quantity ?? this.quantity,
+      imageId: imageId ?? this.imageId,
       price: price ?? this.price,
       productId: productId ?? this.productId,
       isSelected: isSelected ?? this.isSelected,
@@ -52,6 +56,7 @@ class CartItem {
       'name': name,
       'quantity': quantity,
       'price': price,
+      'imageId': imageId,
       'productId': productId,
       'isSelected': isSelected,
       'salesOff': salesOff,
@@ -63,6 +68,7 @@ class CartItem {
       id: json['id'],
       name: json['name'],
       imageUrl: json['imageUrl'] ?? '',
+      imageId: json['imageId'],
       quantity: json['quantity'],
       price: json['price'].toDouble(),
       productId: json['productId'],

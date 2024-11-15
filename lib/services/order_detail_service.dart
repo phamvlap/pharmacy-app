@@ -1,6 +1,5 @@
-import './pocketbase_client.dart';
 import '../models/models.dart';
-import '../utils/utils.dart';
+import './pocketbase_client.dart';
 import './image_service.dart';
 
 class OrderDetailService {
@@ -15,17 +14,13 @@ class OrderDetailService {
       );
 
       final imageService = ImageService();
-      ImageModel image = orderDetail.image!;
-      final uploadedImage = await imageService.uploadImage(
-        image.copyWith(
-          refId: orderDetailModel.id,
-          type: ImageType.product.name,
-        ),
+      final ImageModel? image = await imageService.fetchImage(
+        orderDetailModel.getStringValue('imageId'),
       );
 
       return orderDetail.copyWith(
         id: orderDetailModel.id,
-        image: uploadedImage,
+        image: image,
       );
     } catch (error) {
       return null;

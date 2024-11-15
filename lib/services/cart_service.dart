@@ -1,17 +1,11 @@
-import 'package:http/http.dart' as http;
-import 'package:pocketbase/pocketbase.dart';
-
 import '../models/models.dart';
 import './pocketbase_client.dart';
+import './image_service.dart';
 
 class CartService {
-  String _getFeaturedImageUrl(PocketBase pb, RecordModel cartItemModel) {
-    final featuredImageName = cartItemModel.getStringValue('featuredImage');
-    return pb.files.getUrl(cartItemModel, featuredImageName).toString();
-  }
-
   Future<List<CartItem>> fetchAllCartItems() async {
     final List<CartItem> cartItems = [];
+    final ImageService imageService = ImageService();
 
     try {
       final pb = await getPocketBase();
@@ -21,12 +15,16 @@ class CartService {
           );
 
       for (final cartItemModel in cartItemModels) {
+        final ImageModel? image = await imageService.fetchImage(
+          cartItemModel.getStringValue('imageId'),
+        );
         cartItems.add(
           CartItem.fromJson(
             cartItemModel.toJson()
               ..addAll(
                 {
-                  'imageUrl': _getFeaturedImageUrl(pb, cartItemModel),
+                  'imageUrl': image?.url,
+                  'featuredImage': image?.featuredImage,
                 },
               ),
           ),
@@ -43,28 +41,16 @@ class CartService {
     try {
       final pb = await getPocketBase();
       final userId = pb.authStore.model!.id;
-      final String imageUrl = cartItem.imageUrl;
-
-      final response = await http.get(Uri.parse(imageUrl));
-      final featuredImageBytes = response.bodyBytes;
 
       final cartItemModel = await pb.collection('cart').create(
         body: {
           ...cartItem.toJson(),
           'userId': userId,
         },
-        files: [
-          http.MultipartFile.fromBytes(
-            'featuredImage',
-            featuredImageBytes,
-            filename: imageUrl.split('/').last,
-          ),
-        ],
       );
 
       return cartItem.copyWith(
         id: cartItemModel.id,
-        imageUrl: _getFeaturedImageUrl(pb, cartItemModel),
       );
     } catch (error) {
       return null;
@@ -74,29 +60,23 @@ class CartService {
   Future<CartItem?> updateCartItem(CartItem cartItem) async {
     try {
       final pb = await getPocketBase();
+      final ImageService imageService = ImageService();
       final userId = pb.authStore.model!.id;
-      final String imageUrl = cartItem.imageUrl;
 
-      final response = await http.get(Uri.parse(imageUrl));
-      final featuredImageBytes = response.bodyBytes;
-
-      final cartItemModel = await pb.collection('cart').update(
+      await pb.collection('cart').update(
         cartItem.id!,
         body: {
           ...cartItem.toJson(),
           'userId': userId,
         },
-        files: [
-          http.MultipartFile.fromBytes(
-            'featuredImage',
-            featuredImageBytes,
-            filename: imageUrl.split('/').last,
-          ),
-        ],
       );
 
+      final ImageModel? image =
+          await imageService.fetchImage(cartItem.imageId!);
+
       return cartItem.copyWith(
-        imageUrl: _getFeaturedImageUrl(pb, cartItemModel),
+        imageUrl: image?.url,
+        featuredImage: image?.featuredImage,
       );
     } catch (error) {
       return null;

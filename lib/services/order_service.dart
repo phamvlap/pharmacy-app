@@ -1,8 +1,7 @@
 import 'dart:developer';
-import './pocketbase_client.dart';
-import 'package:provider/provider.dart';
-import '../models/models.dart';
 
+import './pocketbase_client.dart';
+import '../models/models.dart';
 import './order_detail_service.dart';
 
 class OrderService {
@@ -38,8 +37,7 @@ class OrderService {
             salesOff: cartItem.salesOff,
             quantity: cartItem.quantity,
             orderId: orderModel.id,
-            image: ImageModel(
-                url: cartItem.imageUrl, featuredImage: cartItem.featuredImage),
+            imageId: cartItem.imageId,
           ),
         );
       }
