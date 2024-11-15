@@ -30,7 +30,9 @@ class CartController with ChangeNotifier {
   double get totalAmount {
     double total = 0.0;
     for (var item in _cartItems.values) {
-      total += item.price * item.quantity;
+      if (item.isSelected) {
+        total += item.price * item.quantity;
+      }
     }
     return total;
   }
@@ -145,5 +147,25 @@ class CartController with ChangeNotifier {
       return _cartItems[productId]!.isSelected;
     }
     return false;
+  }
+
+  void toggleSelectedAllCartItems(bool value) {
+    for (var item in _cartItems.values) {
+      if (item.isSelected != value) {
+        toggleCartItemSelection(item.productId);
+      }
+    }
+  }
+
+  bool isSelectingAllItems() {
+    if (_cartItems.isEmpty) {
+      return false;
+    }
+    for (var item in _cartItems.values) {
+      if (!item.isSelected) {
+        return false;
+      }
+    }
+    return true;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'dart:developer';
 
@@ -17,22 +18,25 @@ class _CartSummaryState extends State<CartSummary> {
   bool _expanded = false;
   bool _isChecked = false;
 
-  void _onChanged(bool? value) {
-    setState(
-      () {
-        _isChecked = value!;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final cartController = CartController();
+    final CartController cartController = context.watch<CartController>();
 
     final double totalAmount = cartController.totalAmount;
     final double discountAmount = cartController.discountAmount;
     const double shippingFee = 0.0;
     final double finalAmount = totalAmount + shippingFee - discountAmount;
+
+    _isChecked = cartController.isSelectingAllItems();
+
+    void onSelectAllItems(bool? value) {
+      cartController.toggleSelectedAllCartItems(value!);
+      setState(
+        () {
+          _isChecked = value;
+        },
+      );
+    }
 
     return Container(
       decoration: const BoxDecoration(
@@ -108,7 +112,7 @@ class _CartSummaryState extends State<CartSummary> {
             children: <Widget>[
               AppCheckBox(
                 value: _isChecked,
-                onChanged: _onChanged,
+                onChanged: onSelectAllItems,
               ),
               Text('Tất cả', style: TextStyle(color: Colors.grey[600])),
               const Spacer(),
