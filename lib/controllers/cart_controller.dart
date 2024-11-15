@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/foundation.dart';
 
 import '../models/models.dart';
@@ -20,7 +21,9 @@ class CartController with ChangeNotifier {
   }
 
   List<CartItem> get selectedCartItems {
-    return _cartItems.values.where((item) => item.isSelected).toList();
+    final selectedItems =
+        _cartItems.values.where((item) => item.isSelected).toList();
+    return selectedItems;
   }
 
   Iterable<MapEntry<String, CartItem>> get cartItemEntries {
@@ -44,6 +47,10 @@ class CartController with ChangeNotifier {
       discount += item.price * item.quantity * salesOffRate;
     }
     return discount;
+  }
+
+  double get shippingFee {
+    return 24000;
   }
 
   Future<void> fetchAllCartItems() async {
@@ -76,6 +83,7 @@ class CartController with ChangeNotifier {
     }
   }
 
+  // decrease quantity
   Future<void> removeCartItem(String productId) async {
     if (!_cartItems.containsKey(productId)) {
       return;
@@ -167,5 +175,14 @@ class CartController with ChangeNotifier {
       }
     }
     return true;
+  }
+
+  void removeSelectedCartItems() {
+    for (var item in _cartItems.values) {
+      if (item.isSelected) {
+        deleteCartItem(item.productId);
+      }
+    }
+    notifyListeners();
   }
 }

@@ -186,7 +186,8 @@ class _CartItemCardState extends State<CartItemCard> {
                                 ? Row(
                                     children: [
                                       Text(
-                                          '${formatMoney(widget.cartItem.price)} x ${widget.cartItem.quantity}'),
+                                        '${formatMoney(widget.cartItem.price)} x ${widget.cartItem.quantity} (-${(widget.cartItem.salesOff * 100).toInt()}%)',
+                                      ),
                                     ],
                                   )
                                 : Consumer<CartController>(

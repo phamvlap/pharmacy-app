@@ -24,7 +24,7 @@ class _CartSummaryState extends State<CartSummary> {
 
     final double totalAmount = cartController.totalAmount;
     final double discountAmount = cartController.discountAmount;
-    const double shippingFee = 0.0;
+    final double shippingFee = cartController.shippingFee;
     final double finalAmount = totalAmount + shippingFee - discountAmount;
 
     _isChecked = cartController.isSelectingAllItems();

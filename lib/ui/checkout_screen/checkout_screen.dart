@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/utils.dart';
+import '../../controllers/controllers.dart';
 
 import './checkout_summary.dart';
 import '../cart_screen/cart_item_list.dart';
@@ -21,19 +23,30 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     'phoneNumber': '',
   };
 
-  void _submitOrder() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // Process the order here, e.g. send to server
-      log('Order placed:\n'
-          'Name: $_data["name"]\n'
-          'Address: $_data["address"]\n'
-          'Phone Number: $_data["phoneNumber"]');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = context.read<CartController>();
+
+    void submitOrder() {
+      final isValid = _formKey.currentState!.validate();
+      if (!isValid) {
+        return;
+      }
+
+      _formKey.currentState!.save();
+
+      context.read<OrderController>().addOrder(
+            userInformation: _data,
+            cartItems: cartController.selectedCartItems,
+            userId: context.read<AuthController>().user!.id!,
+            discount: cartController.discountAmount,
+            total: cartController.totalAmount,
+            shippingFee: cartController.shippingFee,
+          );
+      context.read<CartController>().removeSelectedCartItems();
+      Navigator.of(context).pushReplacementNamed(RouteNames.home);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Đặt hàng'),
@@ -81,6 +94,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Số điện thoại'),
+                    initialValue: '0374283372',
                     validator: (value) {
                       if (value!.isEmpty || value.length != 10) {
                         return 'Số điện thoại không hợp lệ';
@@ -111,7 +125,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               unCheckItemOnRemove: true,
             ),
           ),
-          CheckoutSummary(onCheckoutSubmitted: _submitOrder),
+          CheckoutSummary(onCheckoutSubmitted: submitOrder),
         ],
       ),
     );

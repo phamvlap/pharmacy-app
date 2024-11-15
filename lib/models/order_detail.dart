@@ -1,3 +1,4 @@
+import 'dart:io';
 import './image_model.dart';
 
 class OrderDetail {
@@ -6,6 +7,7 @@ class OrderDetail {
   final double price;
   final double salesOff;
   final int quantity;
+  final String orderId;
   final ImageModel? image;
 
   OrderDetail({
@@ -14,6 +16,7 @@ class OrderDetail {
     required this.price,
     required this.salesOff,
     required this.quantity,
+    required this.orderId,
     this.image,
   });
 
@@ -23,6 +26,7 @@ class OrderDetail {
     double? price,
     double? salesOff,
     int? quantity,
+    String? orderId,
     ImageModel? image,
   }) {
     return OrderDetail(
@@ -30,6 +34,7 @@ class OrderDetail {
       price: price ?? this.price,
       salesOff: salesOff ?? this.salesOff,
       quantity: quantity ?? this.quantity,
+      orderId: orderId ?? this.orderId,
       image: image ?? this.image,
     );
   }
@@ -40,6 +45,7 @@ class OrderDetail {
       'price': price,
       'salesOff': salesOff,
       'quantity': quantity,
+      'orderId': orderId,
     };
   }
 
@@ -50,10 +56,11 @@ class OrderDetail {
       price: json['price'].toDouble(),
       salesOff: json['salesOff'].toDouble() ?? 0.0,
       quantity: json['quantity'],
+      orderId: json['orderId'],
     );
   }
 
-  ImageModel? get featuredImage {
-    return image ?? ImageModel(url: '');
-  }
+  // File? get featuredImage {
+  //   return image ?? ImageModel(url: '');
+  // }
 }
