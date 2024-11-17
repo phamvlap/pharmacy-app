@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'dart:developer';
-
 import '../../utils/utils.dart';
 import '../../controllers/controllers.dart';
 import '../components/components.dart';
@@ -35,6 +33,57 @@ class _CartSummaryState extends State<CartSummary> {
       setState(
         () {
           _isChecked = value;
+        },
+      );
+    }
+
+    void closeSuccessDialog() {
+      Navigator.of(context).pop();
+    }
+
+    void showNoItemAlert() {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: Container(
+              width: 260,
+              height: 140,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.green,
+                    size: 40,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Vui lòng chọn sản phẩm trước khi mua hàng',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: AppFontSizes.textExtraSmall,
+                      color: AppColors.greyColor,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      Future.delayed(
+        const Duration(seconds: 2),
+        () => {
+          closeSuccessDialog(),
         },
       );
     }
@@ -127,7 +176,7 @@ class _CartSummaryState extends State<CartSummary> {
                     if (cartController.selectedItemCount > 0) {
                       Navigator.of(context).pushNamed(RouteNames.checkout);
                     } else {
-                      // TODO: show dialog
+                      showNoItemAlert();
                     }
                   },
                   style: TextButton.styleFrom(
