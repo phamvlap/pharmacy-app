@@ -91,15 +91,6 @@ class MyAppDrawer extends StatelessWidget {
                     },
                   ),
                   DrawerListTile(
-                    leading: const Icon(Icons.chat, size: 28.0),
-                    title: const Text('Tư vấn'),
-                    routeName: RouteNames.consult,
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(RouteNames.consult);
-                    },
-                  ),
-                  DrawerListTile(
                     leading: const Icon(Icons.shopping_cart, size: 28.0),
                     title: const Text('Giỏ hàng'),
                     routeName: RouteNames.cart,

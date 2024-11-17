@@ -14,7 +14,6 @@ class ScreenRenderer extends StatelessWidget {
 
   static final Map<String, Widget> _screens = {
     RouteNames.home: const HomeScreen(),
-    RouteNames.consult: const ConsultScreen(),
     RouteNames.cart: const CartScreen(),
     RouteNames.profile: const UserScreen(),
     RouteNames.login: const LoginScreen(),

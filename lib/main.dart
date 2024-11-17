@@ -51,8 +51,6 @@ class DrugSalesApp extends StatelessWidget {
                           : const SafeArea(child: LoginScreen());
                     }),
             routes: {
-              RouteNames.consult: (context) =>
-                  const ScreenRenderer(path: RouteNames.consult),
               RouteNames.cart: (context) =>
                   const ScreenRenderer(path: RouteNames.cart),
               RouteNames.profile: (context) =>

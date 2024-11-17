@@ -50,10 +50,6 @@ class AppNavigationBar extends StatelessWidget {
           label: 'Trang chủ',
         ),
         NavigationDestination(
-          icon: Icon(Icons.chat),
-          label: 'Tư vấn',
-        ),
-        NavigationDestination(
           icon: CartIcon(),
           label: 'Giỏ hàng',
         ),
