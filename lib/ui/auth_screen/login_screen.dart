@@ -27,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
       icon: Icons.person,
       label: 'Tên đăng nhập',
       hintText: 'nguyenvana123',
-      initialValue: 'minhnguyent546',
       validator: (value) => Validator.validateUsername(value!),
       autoFocus: true,
       onSaved: (value) {
@@ -41,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
       icon: Icons.lock,
       label: 'Mật khẩu',
       hintText: '',
-      initialValue: '88888888',
       validator: (value) => Validator.validatePassword(value!),
       onSaved: (value) {
         _authData['password'] = value!;
@@ -56,17 +54,20 @@ class _LoginScreenState extends State<LoginScreen> {
       await context.read<CartController>().fetchAllCartItems();
     }
 
-    Future<void> submit() async {
+    Future<void> submit(void Function() onSuccess) async {
       final isValid = _loginForm.currentState!.validate();
       if (!isValid) {
         return;
       }
       _loginForm.currentState!.save();
       try {
+        log('Logging in...');
         await context
             .read<AuthController>()
             .login(_authData['username']!, _authData['password']!);
+        log('Logged in login_screen.dart');
         await fetchCartItems();
+        onSuccess();
       } catch (error) {
         log('Error submitting login form: $error');
         showErrorDialog(context, error.toString());
@@ -108,7 +109,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () {
-                      submit();
+                      submit(() {
+                        Navigator.of(context)
+                            .pushReplacementNamed(RouteNames.home);
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,
