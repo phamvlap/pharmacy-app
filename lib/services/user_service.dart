@@ -7,7 +7,6 @@ class UserService {
   Future<User?> updateUser(User user) async {
     final pb = await getPocketBase();
     try {
-      log('updating user');
       final userModel = await pb.collection('users').update(
             user.id!,
             body: user.toJson(),

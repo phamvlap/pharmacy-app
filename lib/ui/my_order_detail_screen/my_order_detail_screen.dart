@@ -5,6 +5,7 @@ import '../../utils/utils.dart';
 
 import './delivered_orders.dart';
 import './delivering_orders.dart';
+import './pending_orders.dart';
 
 class MyOrderDetailScreen extends StatelessWidget {
   final int initialIndex;
@@ -51,9 +52,7 @@ class MyOrderDetailScreen extends StatelessWidget {
                 color: AppColors.mainBackgroundColor,
                 child: const TabBarView(
                   children: <Widget>[
-                    EmptyCart(
-                      title: Text('Bạn chưa có đơn hàng nào'),
-                    ),
+                    PendingOrders(),
                     DeliveringOrders(),
                     DeliveredOrders(),
                     EmptyCart(

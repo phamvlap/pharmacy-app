@@ -1,3 +1,4 @@
+import 'package:ct484_project/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,9 @@ class DrugSalesApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => OrderController(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => OrderDetailController(),
         ),
       ],
       child: Consumer<AuthController>(

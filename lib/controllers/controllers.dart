@@ -4,3 +4,4 @@ export './product_controller.dart';
 export './auth_controller.dart';
 export './user_controller.dart';
 export './order_controller.dart';
+export './order_detail_controller.dart';

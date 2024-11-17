@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:ct484_project/utils/enums.dart';
+
 import './pocketbase_client.dart';
 import '../models/models.dart';
 import './order_detail_service.dart';
@@ -38,6 +40,7 @@ class OrderService {
             quantity: cartItem.quantity,
             orderId: orderModel.id,
             imageId: cartItem.imageId,
+            status: OrderStatus.pending,
           ),
         );
       }
@@ -45,6 +48,22 @@ class OrderService {
     } catch (error) {
       log('Error adding order: $error');
       return false;
+    }
+  }
+
+  Future<List<Order>?> fetchAllOrders() async {
+    final List<Order> orders = [];
+    try {
+      final pb = await getPocketBase();
+      final orderModels = await pb.collection('orders').getFullList();
+      for (final orderModel in orderModels) {
+        orders.add(
+          Order.fromJson(orderModel.toJson()),
+        );
+      }
+      return orders;
+    } catch (error) {
+      return null;
     }
   }
 }

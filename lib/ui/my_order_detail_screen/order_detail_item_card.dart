@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../../models/models.dart';
 import '../../utils/utils.dart';
 
 class OrderDetailItemCard extends StatelessWidget {
-  final CartItem cartItem;
+  final OrderDetail orderDetail;
   final Widget? orderStatus;
   final Widget bottomButton;
 
   const OrderDetailItemCard({
     super.key,
-    required this.cartItem,
+    required this.orderDetail,
     required this.bottomButton,
     this.orderStatus,
   });
@@ -18,20 +19,22 @@ class OrderDetailItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double price =
-        cartItem.product.price * (1 - (cartItem.product.salesOff ?? 0.0));
-    final double totalPrice = price * cartItem.quantity;
+        orderDetail.price * (1 - (orderDetail.salesOff ?? 0.0));
+    final double totalPrice = price * orderDetail.quantity;
 
     return Container(
       color: Colors.white,
       child: Column(
         children: <Widget>[
           ListTile(
-            leading: Image.asset(cartItem.product.imageUrls[0]),
+            leading: orderDetail.image!.featuredImage != null
+                ? Image.file(orderDetail.image!.featuredImage!)
+                : Image.network(orderDetail.image!.url),
             title: Text(
-              cartItem.product.name,
+              orderDetail.name,
               overflow: TextOverflow.ellipsis,
             ),
-            subtitle: Text('Số lượng: ${cartItem.quantity}'),
+            subtitle: Text('Số lượng: ${orderDetail.quantity}'),
             trailing: Text(
               formatMoney(price),
               style: const TextStyle(fontSize: AppFontSizes.textSmall),

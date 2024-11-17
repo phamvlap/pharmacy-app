@@ -42,8 +42,10 @@ class CartController with ChangeNotifier {
   double get discountAmount {
     double discount = 0.0;
     for (var item in _cartItems.values) {
-      double salesOffRate = item.salesOff;
-      discount += item.price * item.quantity * salesOffRate;
+      if (item.isSelected) {
+        double salesOffRate = item.salesOff;
+        discount += item.price * item.quantity * salesOffRate;
+      }
     }
     return discount;
   }

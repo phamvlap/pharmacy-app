@@ -1,3 +1,5 @@
+import '../utils/utils.dart';
+
 import './image_model.dart';
 
 class OrderDetail {
@@ -9,6 +11,7 @@ class OrderDetail {
   final String orderId;
   final String? imageId;
   final ImageModel? image;
+  final OrderStatus status;
 
   OrderDetail({
     this.id,
@@ -19,6 +22,7 @@ class OrderDetail {
     required this.orderId,
     this.imageId,
     this.image,
+    this.status = OrderStatus.pending,
   });
 
   OrderDetail copyWith({
@@ -30,6 +34,7 @@ class OrderDetail {
     String? orderId,
     String? imageId,
     ImageModel? image,
+    OrderStatus? status,
   }) {
     return OrderDetail(
       name: name ?? this.name,
@@ -39,6 +44,7 @@ class OrderDetail {
       orderId: orderId ?? this.orderId,
       imageId: imageId ?? this.imageId,
       image: image ?? this.image,
+      status: status ?? this.status,
     );
   }
 
@@ -50,6 +56,7 @@ class OrderDetail {
       'quantity': quantity,
       'orderId': orderId,
       'imageId': imageId,
+      'status': status.name,
     };
   }
 

@@ -5,6 +5,7 @@ import '../services/services.dart';
 
 class OrderController with ChangeNotifier {
   final OrderService orderService = OrderService();
+  final List<Order> _orders = [];
 
   Future<void> addOrder({
     required Map<String, String> userInformation,
@@ -23,5 +24,18 @@ class OrderController with ChangeNotifier {
       shippingFee: shippingFee,
     );
     notifyListeners();
+  }
+
+  Future<void> fetchAllOrders() async {
+    final List<Order>? orders = await orderService.fetchAllOrders();
+    if (orders != null) {
+      _orders.clear();
+      _orders.addAll(orders);
+      notifyListeners();
+    }
+  }
+
+  List<Order> get orders {
+    return [..._orders];
   }
 }

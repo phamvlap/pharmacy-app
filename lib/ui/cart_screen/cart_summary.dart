@@ -24,7 +24,8 @@ class _CartSummaryState extends State<CartSummary> {
 
     final double totalAmount = cartController.totalAmount;
     final double discountAmount = cartController.discountAmount;
-    final double shippingFee = cartController.shippingFee;
+    final double shippingFee =
+        cartController.selectedItemCount > 0 ? cartController.shippingFee : 0;
     final double finalAmount = totalAmount + shippingFee - discountAmount;
 
     _isChecked = cartController.isSelectingAllItems();
@@ -123,7 +124,11 @@ class _CartSummaryState extends State<CartSummary> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(RouteNames.checkout);
+                    if (cartController.selectedItemCount > 0) {
+                      Navigator.of(context).pushNamed(RouteNames.checkout);
+                    } else {
+                      // TODO: show dialog
+                    }
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.whiteColor,
