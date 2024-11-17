@@ -49,7 +49,75 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final List<ImageModel> imageList = widget.product.images;
     final List<String> imageUrls = imageList.map((image) => image.url).toList();
 
+    void closeSuccessDialog() {
+      Navigator.of(context).pop();
+    }
+
+    void showSuccessDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+            child: Container(
+              width: 260,
+              height: 140,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.green,
+                    size: 40,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Sản phẩm đã được thêm vào giỏ hàng',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: AppFontSizes.textExtraSmall,
+                      color: AppColors.greyColor,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  SizedBox(
+                    height: 34,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(RouteNames.cart);
+                        Navigator.of(context).pushNamed(RouteNames.cart);
+                      },
+                      child: const Text(
+                        'Xem giỏ hàng',
+                        style: TextStyle(
+                          fontSize: AppFontSizes.textExtraSmall,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      Future.delayed(
+        const Duration(seconds: 3),
+        () => {
+          closeSuccessDialog(),
+        },
+      );
+    }
+
     void onAddToCart() {
+      Navigator.of(context).pop();
       context.read<CartController>().addCartItem(
             CartItem(
               name: widget.product.name,
@@ -61,6 +129,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               salesOff: widget.product.salesOff,
             ),
           );
+      showSuccessDialog();
     }
 
     void onBuyNow() {
