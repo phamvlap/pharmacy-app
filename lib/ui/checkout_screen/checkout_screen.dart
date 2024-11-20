@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
+import '../components/dialogs/dialogs.dart';
 import '../../utils/utils.dart';
 import '../../controllers/controllers.dart';
 
@@ -22,6 +22,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     'address': '',
     'phoneNumber': '',
   };
+
+  void goToPendingOrdersScreen() {
+    Navigator.of(context)
+        .pushReplacementNamed(RouteNames.myOrderDetail, arguments: 0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             shippingFee: cartController.shippingFee,
           );
       context.read<CartController>().removeSelectedCartItems();
-      Navigator.of(context).pushReplacementNamed(RouteNames.home);
+
+      showAlertDialog(
+        context,
+        message: 'Đặt hàng thành công',
+        duration: 2,
+        dismissFunction: goToPendingOrdersScreen,
+      );
     }
 
     return Scaffold(
