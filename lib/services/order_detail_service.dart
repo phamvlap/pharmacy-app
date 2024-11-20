@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../models/models.dart';
 import './pocketbase_client.dart';
 import './image_service.dart';

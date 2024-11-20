@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../services/services.dart';
 import '../models/models.dart';
 
@@ -11,7 +9,9 @@ class UserService {
             user.id!,
             body: user.toJson(),
           );
-      return user;
+      return user.copyWith(
+        id: userModel.id,
+      );
     } catch (error) {
       return null;
     }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +19,8 @@ class EditUserInformationScreen extends StatefulWidget {
 class _EditUserInformationScreenState extends State<EditUserInformationScreen> {
   String _selectedGender = 'nam';
   DateTime _selectedDate = DateTime.now();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  // final TextEditingController _nameController = TextEditingController();
+  // final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   late User _user;
   final GlobalKey<FormState> _userInformationForm = GlobalKey<FormState>();

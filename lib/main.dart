@@ -1,4 +1,3 @@
-import 'package:ct484_project/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -41,14 +40,14 @@ class DrugSalesApp extends StatelessWidget {
         ),
       ],
       child: Consumer<AuthController>(
-        builder: (context, AuthController, child) {
+        builder: (context, authController, child) {
           return MaterialApp(
             theme: theme,
             debugShowCheckedModeBanner: false,
-            home: AuthController.isLoggedIn()
+            home: authController.isLoggedIn()
                 ? const ScreenRenderer(path: RouteNames.home)
                 : FutureBuilder(
-                    future: AuthController.tryAutoLogin(),
+                    future: authController.tryAutoLogin(),
                     builder: (context, snapshot) {
                       return snapshot.connectionState == ConnectionState.waiting
                           ? const SafeArea(child: SplashScreen())
