@@ -1,10 +1,12 @@
 import 'dart:developer';
 
-import 'package:ct484_project/utils/enums.dart';
+import 'package:provider/provider.dart';
 
 import './pocketbase_client.dart';
 import '../models/models.dart';
 import './order_detail_service.dart';
+import '../utils/utils.dart';
+import '../controllers/controllers.dart';
 
 class OrderService {
   Future<bool> addOrder({
@@ -51,14 +53,15 @@ class OrderService {
     }
   }
 
-  Future<List<Order>?> fetchAllOrders() async {
+  Future<List<Order>?> fetchAllOrders(String userId) async {
     final List<Order> orders = [];
     try {
       final pb = await getPocketBase();
-      final orderModels = await pb.collection('orders').getFullList();
+      final orderModels =
+          await pb.collection('orders').getFullList(filter: "userId='$userId'");
       for (final orderModel in orderModels) {
         orders.add(
-          Order.fromJson(orderModel.toJson()),
+          Order.fromJson(orderModel.toJson()).copyWith(id: orderModel.id),
         );
       }
       return orders;

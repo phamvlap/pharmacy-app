@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:ct484_project/controllers/order_detail_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -17,20 +16,22 @@ class PendingOrders extends StatefulWidget {
 }
 
 class _PendingOrdersState extends State<PendingOrders> {
-  late Future<void> _fetchOrderDetails;
+  late Future<void> _fetchOrderDetailsByUserId;
 
   @override
   void initState() {
     super.initState();
-    _fetchOrderDetails = context
+    final userId = context.read<AuthController>().user!.id!;
+    _fetchOrderDetailsByUserId = context
         .read<OrderDetailController>()
-        .fetchAllOrderDetails(OrderStatus.pending);
+        .fetchAllOrderDetailsByUserId(userId, OrderStatus.pending);
   }
 
   @override
   Widget build(BuildContext context) {
+    final userId = context.read<AuthController>().user!.id!;
     return FutureBuilder(
-      future: _fetchOrderDetails,
+      future: _fetchOrderDetailsByUserId,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -41,7 +42,7 @@ class _PendingOrdersState extends State<PendingOrders> {
           onRefresh: () async {
             await context
                 .read<OrderDetailController>()
-                .fetchAllOrderDetails(OrderStatus.pending);
+                .fetchAllOrderDetailsByUserId(userId, OrderStatus.pending);
           },
           child: context.read<OrderDetailController>().orders.isEmpty
               ? const EmptyCart(

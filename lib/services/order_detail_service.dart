@@ -28,15 +28,16 @@ class OrderDetailService {
     }
   }
 
-  Future<List<OrderDetail>?> fetchAllOrderDetails(
-      OrderStatus orderStatus) async {
+  Future<List<OrderDetail>?> fetchAllOrderDetailsByOderId(
+      String orderId, OrderStatus orderStatus) async {
     final List<OrderDetail> orderDetails = [];
     try {
       final pb = await getPocketBase();
       final imageService = ImageService();
       final orderDetailModels = await pb
           .collection('order_details')
-          .getFullList(filter: "status=\"${orderStatus.name}\"");
+          .getFullList(
+              filter: 'status="${orderStatus.name}" && orderId="$orderId"');
       for (final orderDetailModel in orderDetailModels) {
         final ImageModel? image = await imageService.fetchImage(
           orderDetailModel.getStringValue('imageId'),

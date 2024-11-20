@@ -22,13 +22,15 @@ class _DeliveredOrdersState extends State<DeliveredOrders> {
   @override
   void initState() {
     super.initState();
+    final userId = context.read<AuthController>().user!.id!;
     _fetchOrderDetails = context
         .read<OrderDetailController>()
-        .fetchAllOrderDetails(OrderStatus.delivered);
+        .fetchAllOrderDetailsByUserId(userId, OrderStatus.delivered);
   }
 
   @override
   Widget build(BuildContext context) {
+    final userId = context.read<AuthController>().user!.id!;
     return FutureBuilder(
       future: _fetchOrderDetails,
       builder: (context, snapshot) {
@@ -41,7 +43,7 @@ class _DeliveredOrdersState extends State<DeliveredOrders> {
           onRefresh: () async {
             await context
                 .read<OrderDetailController>()
-                .fetchAllOrderDetails(OrderStatus.delivered);
+                .fetchAllOrderDetailsByUserId(userId, OrderStatus.delivered);
           },
           child: context.read<OrderDetailController>().orders.isEmpty
               ? const EmptyCart(

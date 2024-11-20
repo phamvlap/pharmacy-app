@@ -26,8 +26,8 @@ class OrderController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchAllOrders() async {
-    final List<Order>? orders = await orderService.fetchAllOrders();
+  Future<void> fetchAllOrders(String userId) async {
+    final List<Order>? orders = await orderService.fetchAllOrders(userId);
     if (orders != null) {
       _orders.clear();
       _orders.addAll(orders);
