@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 import '../../models/models.dart';
 import '../../utils/utils.dart';
@@ -18,8 +17,7 @@ class OrderDetailItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double price =
-        orderDetail.price * (1 - (orderDetail.salesOff ?? 0.0));
+    final double price = orderDetail.price * (1 - orderDetail.salesOff);
     final double totalPrice = price * orderDetail.quantity;
 
     return Container(

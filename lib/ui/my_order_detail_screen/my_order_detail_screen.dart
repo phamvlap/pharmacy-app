@@ -14,7 +14,29 @@ class MyOrderDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: AppBar(
+        title: const Text('Đơn hàng của tôi'),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+          ),
+        ),
+        actions: <Widget>[
+          GestureDetector(
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(8.0, 0.0, 20.0, 0.0),
+              child: Icon(Icons.home),
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(RouteNames.home);
+            },
+          ),
+        ],
+      ),
       body: DefaultTabController(
         initialIndex: initialIndex,
         length: 4,

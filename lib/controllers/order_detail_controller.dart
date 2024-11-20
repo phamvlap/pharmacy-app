@@ -27,7 +27,6 @@ class OrderDetailController with ChangeNotifier {
 
     if (orders != null) {
       for (final order in orders) {
-        log('Order: ${order.id}');
         final List<OrderDetail>? orderDetailsByOrderId =
             await orderDetailService.fetchAllOrderDetailsByOderId(
                 order.id!, orderStatus);
