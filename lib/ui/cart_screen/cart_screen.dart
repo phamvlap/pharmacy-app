@@ -29,6 +29,10 @@ class _CartScreenState extends State<CartScreen> {
     final CartController cartController = context.watch<CartController>();
     int itemCount = cartController.itemCount;
 
+    void closeAlertDialog() {
+      Navigator.of(context).pop();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Giỏ hàng ($itemCount)'),
@@ -58,12 +62,16 @@ class _CartScreenState extends State<CartScreen> {
                   ? const EmptyCart(
                       title: Text('Giỏ hàng trống'),
                     )
-                  : const Column(
+                  : Column(
                       children: <Widget>[
                         Expanded(
-                          child: CartItemList(),
+                          child: CartItemList(
+                            closeAlertDialog: closeAlertDialog,
+                          ),
                         ),
-                        CartSummary(),
+                        CartSummary(
+                          closeAlertDialog: closeAlertDialog,
+                        ),
                       ],
                     ),
             ),

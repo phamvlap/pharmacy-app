@@ -6,24 +6,32 @@ import '../../controllers/controllers.dart';
 
 import './cart_item_card.dart';
 
-class CartItemList extends StatelessWidget {
+class CartItemList extends StatefulWidget {
   final bool selectedOnly;
   final bool showCartItemCheckbox;
   final bool fixedQuantity;
   final bool unCheckItemOnRemove;
+  final void Function()? closeAlertDialog;
+
   const CartItemList({
     super.key,
     this.selectedOnly = false,
     this.showCartItemCheckbox = true,
     this.fixedQuantity = false,
     this.unCheckItemOnRemove = false,
+    this.closeAlertDialog,
   });
 
+  @override
+  State<CartItemList> createState() => _CartItemListState();
+}
+
+class _CartItemListState extends State<CartItemList> {
   @override
   Widget build(BuildContext context) {
     return Consumer<CartController>(
       builder: (context, cartController, child) {
-        final cartItems = selectedOnly
+        final cartItems = widget.selectedOnly
             ? cartController.selectedCartItems
             : cartController.cartItems;
         return ListView.builder(
@@ -35,9 +43,10 @@ class CartItemList extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 4.0),
               child: CartItemCard(
                 cartItem,
-                showCheckbox: showCartItemCheckbox,
-                fixedQuantity: fixedQuantity,
-                uncheckOnRemove: unCheckItemOnRemove,
+                showCheckbox: widget.showCartItemCheckbox,
+                fixedQuantity: widget.fixedQuantity,
+                uncheckOnRemove: widget.unCheckItemOnRemove,
+                closeAlertDialog: widget.closeAlertDialog,
               ),
             );
           },

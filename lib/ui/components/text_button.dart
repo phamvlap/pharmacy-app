@@ -45,7 +45,7 @@ class AppTextButton extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: AppFontSizes.textMedium,
+          fontSize: AppFontSizes.textNormal,
           fontWeight: FontWeight.bold,
         ),
       ),

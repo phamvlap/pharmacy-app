@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'dart:developer';
 
 import '../components/components.dart';
+import '../components/dialogs/dialogs.dart';
 import '../../models/models.dart';
 import '../../controllers/controllers.dart';
 import '../../utils/utils.dart';
@@ -53,69 +54,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       Navigator.of(context).pop();
     }
 
-    void showSuccessDialog() {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Center(
-            child: Container(
-              width: 260,
-              height: 140,
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.check_circle_outline,
-                    color: Colors.green,
-                    size: 40,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Sản phẩm đã được thêm vào giỏ hàng',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: AppFontSizes.textExtraSmall,
-                      color: AppColors.greyColor,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  SizedBox(
-                    height: 34,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(RouteNames.cart);
-                        Navigator.of(context).pushNamed(RouteNames.cart);
-                      },
-                      child: const Text(
-                        'Xem giỏ hàng',
-                        style: TextStyle(
-                          fontSize: AppFontSizes.textExtraSmall,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-
-      Future.delayed(
-        const Duration(seconds: 3),
-        () => {
-          closeSuccessDialog(),
-        },
-      );
-    }
-
     void onAddToCart() {
       Navigator.of(context).pop();
       context.read<CartController>().addCartItem(
@@ -129,7 +67,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               salesOff: widget.product.salesOff,
             ),
           );
-      showSuccessDialog();
+      showAlertDialog(
+        context,
+        message: 'Sản phẩm đã được thêm vào giỏ hàng',
+        duration: 3,
+        dismissFunction: closeSuccessDialog,
+        alertActionButton: AlertActionButton(
+          actionText: 'Xem giỏ hàng',
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(RouteNames.cart);
+            Navigator.of(context).pushNamed(RouteNames.cart);
+          },
+        ),
+      );
     }
 
     void onBuyNow() {

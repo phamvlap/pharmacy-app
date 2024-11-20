@@ -1,10 +1,10 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
 import '../../models/models.dart';
 import '../components/components.dart';
+import '../components/dialogs/dialogs.dart';
 import '../../controllers/controllers.dart';
 
 class CartItemCard extends StatefulWidget {
@@ -12,6 +12,7 @@ class CartItemCard extends StatefulWidget {
   final bool showCheckbox;
   final bool fixedQuantity;
   final bool uncheckOnRemove;
+  final void Function()? closeAlertDialog;
 
   const CartItemCard(
     this.cartItem, {
@@ -19,6 +20,7 @@ class CartItemCard extends StatefulWidget {
     this.showCheckbox = true,
     this.fixedQuantity = false,
     this.uncheckOnRemove = false,
+    this.closeAlertDialog,
   });
 
   @override
@@ -67,6 +69,12 @@ class _CartItemCardState extends State<CartItemCard> {
             .read<CartController>()
             .deleteCartItem(widget.cartItem.productId);
       }
+      showAlertDialog(
+        context,
+        message: 'Đã xóa sản phẩm khỏi giỏ hàng',
+        duration: 2,
+        dismissFunction: widget.closeAlertDialog,
+      );
     }
 
     return GestureDetector(
