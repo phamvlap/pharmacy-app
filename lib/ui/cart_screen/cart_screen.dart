@@ -45,6 +45,17 @@ class _CartScreenState extends State<CartScreen> {
             Icons.arrow_back_ios_new_rounded,
           ),
         ),
+        actions: <Widget>[
+          GestureDetector(
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(8.0, 0.0, 20.0, 0.0),
+              child: Icon(Icons.home),
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(RouteNames.home);
+            },
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: _fetchCartItems,

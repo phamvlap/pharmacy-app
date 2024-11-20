@@ -28,7 +28,9 @@ class CartItemCard extends StatefulWidget {
 }
 
 class _CartItemCardState extends State<CartItemCard> {
-  final double maxDragPosition = -80.0;
+  static const double maxDragWidth = 80.0;
+
+  double maxDragPosition = -maxDragWidth;
   double _dragPosition = 0.0;
 
   double calculateSubTotal(CartItem cartItem) {
@@ -68,13 +70,18 @@ class _CartItemCardState extends State<CartItemCard> {
         context
             .read<CartController>()
             .deleteCartItem(widget.cartItem.productId);
+        setState(
+          () {
+            _dragPosition = 0.0;
+          },
+        );
+        showAlertDialog(
+          context,
+          message: 'Đã xóa sản phẩm khỏi giỏ hàng',
+          duration: 2,
+          dismissFunction: widget.closeAlertDialog,
+        );
       }
-      showAlertDialog(
-        context,
-        message: 'Đã xóa sản phẩm khỏi giỏ hàng',
-        duration: 2,
-        dismissFunction: widget.closeAlertDialog,
-      );
     }
 
     return GestureDetector(
@@ -108,14 +115,16 @@ class _CartItemCardState extends State<CartItemCard> {
               width: double.infinity,
               color: Colors.red,
               alignment: Alignment.centerRight,
-              child: Container(
-                margin: const EdgeInsets.only(right: 8.0),
+              child: SizedBox(
+                height: double.infinity,
+                width: maxDragWidth,
                 child: IconButton(
                   padding: const EdgeInsets.all(2.0),
                   onPressed: onRemoveCartItem,
                   icon: Icon(
                     Icons.delete,
                     color: Colors.grey[100]!,
+                    size: 26.0,
                   ),
                 ),
               ),
